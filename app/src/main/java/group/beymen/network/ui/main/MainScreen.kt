@@ -1,56 +1,23 @@
 package group.beymen.network.ui.main
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Text
+import android.annotation.SuppressLint
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.preview.PreviewParameter
-import androidx.compose.ui.unit.sp
-import group.beymen.network.ui.components.EmptyScreen
-import group.beymen.network.ui.components.LoadingBar
-import group.beymen.network.ui.main.MainContract.UiAction
-import group.beymen.network.ui.main.MainContract.UiEffect
-import group.beymen.network.ui.main.MainContract.UiState
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.emptyFlow
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
+import group.beymen.network.common.UiConfigurationState
+import group.beymen.network.ui.navigation.MainNavHost
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun MainScreen(
-    uiState: UiState,
-    uiEffect: Flow<UiEffect>,
-    onAction: (UiAction) -> Unit,
-) {
-    when {
-        uiState.isLoading -> LoadingBar()
-        uiState.list.isNotEmpty() -> EmptyScreen()
-        else -> MainContent()
-    }
-}
+fun MainScreen(navController: NavHostController = rememberNavController()) {
+    val configuration = remember { mutableStateOf(UiConfigurationState()) }
 
-@Composable
-fun MainContent() {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center,
+    Scaffold(
+        bottomBar = { BottomBar(navController = navController) }
     ) {
-        Text(
-            text = "Main Content",
-            fontSize = 24.sp,
-        )
+        MainNavHost(navController = navController, configuration = configuration)
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun MainScreenPreview(
-    @PreviewParameter(MainScreenPreviewProvider::class) uiState: UiState,
-) {
-    MainScreen(
-        uiState = uiState,
-        uiEffect = emptyFlow(),
-        onAction = {},
-    )
 }
