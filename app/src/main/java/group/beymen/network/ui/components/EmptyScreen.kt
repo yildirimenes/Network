@@ -28,7 +28,7 @@ fun EmptyScreen() {
             contentDescription = "Warning",
         )
         Text(
-            text = "No items found",
+            text = "No items found.",
             color = Color.Black,
             fontSize = 20.sp,
         )
