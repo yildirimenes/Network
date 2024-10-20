@@ -6,6 +6,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import group.beymen.network.common.UiConfigurationState
+import group.beymen.network.data.model.BottomBarModel
 
 @Composable
 fun MainNavHost(
@@ -15,7 +16,7 @@ fun MainNavHost(
 ) {
     NavHost(
         navController = navController,
-        startDestination = BottomBarScreen.Home.route,
+        startDestination = BottomBarModel.Home.route,
         modifier = modifier
     ) {
         addHomeGraph(navController, configuration)

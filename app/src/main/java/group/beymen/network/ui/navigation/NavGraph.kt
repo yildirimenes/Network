@@ -7,6 +7,7 @@ import androidx.navigation.compose.composable
 import group.beymen.network.common.UiConfigurationState
 import group.beymen.network.ui.account.AccountScreen
 import group.beymen.network.ui.homepage.HomePageScreen
+import group.beymen.network.data.model.BottomBarModel
 import group.beymen.network.ui.outlet.OutletScreen
 
 
@@ -14,13 +15,13 @@ fun NavGraphBuilder.addHomeGraph(
     navController: NavHostController,
     configuration: MutableState<UiConfigurationState>
 ) {
-    composable(route = BottomBarScreen.Home.route) {
+    composable(route = BottomBarModel.Home.route) {
         HomePageScreen(navController)
     }
 }
 
 fun NavGraphBuilder.addOutletGraph(navController: NavHostController) {
-    composable(route = BottomBarScreen.Outlet.route) {
+    composable(route = BottomBarModel.Outlet.route) {
         OutletScreen(navController)
     }
 }
@@ -28,7 +29,7 @@ fun NavGraphBuilder.addOutletGraph(navController: NavHostController) {
 fun NavGraphBuilder.addAccountGraph(
     navController: NavHostController,
     configuration: MutableState<UiConfigurationState>) {
-    composable(route = BottomBarScreen.Account.route) {
+    composable(route = BottomBarModel.Account.route) {
         AccountScreen(navController)
     }
 }

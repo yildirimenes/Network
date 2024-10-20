@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Network</string>
+    <string name="homepage_screen">Anasayfa</string>
+    <string name="account_screen">Hesabım Sayfası</string>
+    <string name="outlet_screen">Outlet Sayfası</string>
+    <string name="home_title">Anasayfa</string>
+    <string name="outlet_title">Outlet</string>
+    <string name="account_title">Hesabım</string>
+    <string name="hello_name">Merhaba, Enes Yıldırım</string>
+    <string name="personal_info">Kişisel Bilgilerim</string>
+    <string name="dark_mode">Gece/Gündüz Modu</string>
+
+</resources>

@@ -19,6 +19,7 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
+
     }
 
     buildTypes {
@@ -44,6 +45,9 @@ android {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
+    }
+    androidResources {
+        generateLocaleConfig = true
     }
 }
 
