@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Network</string>
+    <string name="app_name">NetWork</string>
     <string name="homepage_screen">HomePage Screen</string>
     <string name="account_screen">Account Screen</string>
     <string name="outlet_screen">Outlet Screen</string>
