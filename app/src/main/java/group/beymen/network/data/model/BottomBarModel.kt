@@ -1,31 +1,32 @@
-package group.beymen.network.ui.navigation
+package group.beymen.network.data.model
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.ui.graphics.vector.ImageVector
+import group.beymen.network.R
 
-sealed class BottomBarScreen(
+sealed class BottomBarModel(
     val route: String,
-    val title: String,
+    val titleResId: Int,
     val icon: ImageVector
 ) {
-    data object Home : BottomBarScreen(
+    data object Home : BottomBarModel(
         route = "HOME",
-        title = "HOME",
+        titleResId = R.string.home_title,
         icon = Icons.Default.Home
     )
 
-    data object Outlet : BottomBarScreen(
+    data object Outlet : BottomBarModel(
         route = "OUTLET",
-        title = "OUTLET",
+        titleResId = R.string.outlet_title,
         icon = Icons.Default.Menu
     )
 
-    data object Account : BottomBarScreen(
+    data object Account : BottomBarModel(
         route = "ACCOUNT",
-        title = "ACCOUNT",
+        titleResId = R.string.account_title,
         icon = Icons.Default.AccountCircle
     )
 }
