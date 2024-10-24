@@ -6,6 +6,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import group.beymen.network.common.Constants.BASE_URL
+import group.beymen.network.data.source.remote.OutletPageService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -27,5 +28,11 @@ object NetworkModule {
     @Singleton
     fun provideMainService(retrofit: Retrofit): MainPageService {
         return retrofit.create(MainPageService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideOutletService(retrofit: Retrofit): OutletPageService {
+        return retrofit.create(OutletPageService::class.java)
     }
 }

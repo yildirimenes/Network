@@ -6,7 +6,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import group.beymen.network.common.UiConfigurationState
-import group.beymen.network.data.model.BottomBarModel
+import group.beymen.network.data.model.main.BottomBarModel
 
 @Composable
 fun MainNavHost(

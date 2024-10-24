@@ -1,4 +1,4 @@
-package group.beymen.network.data.model
+package group.beymen.network.data.model.main
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle

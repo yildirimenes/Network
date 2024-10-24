@@ -23,7 +23,7 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.wear.compose.material.ContentAlpha
-import group.beymen.network.data.model.BottomBarModel
+import group.beymen.network.data.model.main.BottomBarModel
 
 @Composable
 fun BottomBarComponents(navController: NavHostController) {

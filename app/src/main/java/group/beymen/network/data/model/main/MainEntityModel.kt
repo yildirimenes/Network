@@ -1,4 +1,4 @@
-package group.beymen.network.data.model
+package group.beymen.network.data.model.main
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

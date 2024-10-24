@@ -7,7 +7,7 @@ import androidx.navigation.compose.composable
 import group.beymen.network.common.UiConfigurationState
 import group.beymen.network.ui.account.AccountScreen
 import group.beymen.network.ui.homepage.HomePageScreen
-import group.beymen.network.data.model.BottomBarModel
+import group.beymen.network.data.model.main.BottomBarModel
 import group.beymen.network.ui.outlet.OutletScreen
 
 

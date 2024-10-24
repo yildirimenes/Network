@@ -23,7 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import group.beymen.network.data.model.LanguageModel
+import group.beymen.network.data.model.main.LanguageModel
 
 @Composable
 fun LanguagesDropdown(

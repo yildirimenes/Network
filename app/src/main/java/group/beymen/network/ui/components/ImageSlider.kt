@@ -23,7 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import group.beymen.network.data.model.mainpage.MainPageContent
+import group.beymen.network.data.model.homepage.MainPageContent
 import kotlinx.coroutines.delay
 
 @Composable
