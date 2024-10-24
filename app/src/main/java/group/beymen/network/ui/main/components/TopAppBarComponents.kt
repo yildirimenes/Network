@@ -16,7 +16,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import group.beymen.network.R
-import group.beymen.network.data.model.LanguageModel
+import group.beymen.network.data.model.main.LanguageModel
 import group.beymen.network.ui.components.LanguagesDropdown
 
 @OptIn(ExperimentalMaterial3Api::class)

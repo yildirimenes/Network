@@ -5,7 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import group.beymen.network.data.model.mainpage.MainPageResponse
+import group.beymen.network.data.model.homepage.MainPageResponse
 import group.beymen.network.data.repository.MainPageRepository
 import group.beymen.network.util.Resource
 import kotlinx.coroutines.launch

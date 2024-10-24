@@ -1,4 +1,4 @@
-package group.beymen.network.data.model.mainpage
+package group.beymen.network.data.model.homepage
 
 data class MainPageContent(
     val Type: String?,

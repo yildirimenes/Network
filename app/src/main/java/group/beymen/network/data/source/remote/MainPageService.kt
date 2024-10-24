@@ -1,6 +1,6 @@
 package group.beymen.network.data.source.remote
 
-import group.beymen.network.data.model.mainpage.MainPageResponse
+import group.beymen.network.data.model.homepage.MainPageResponse
 import retrofit2.Response
 import retrofit2.http.GET
 
