@@ -2,7 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.compose.compiler)
-    alias(libs.plugins.ksp)
+    //alias(libs.plugins.ksp)
+    alias(libs.plugins.kapt)
     alias(libs.plugins.hilt.plugin)
 }
 
@@ -74,7 +75,8 @@ dependencies {
     debugImplementation(libs.compose.ui.test.manifest)
 
     // Room
-    ksp(libs.room.compiler)
+    //ksp(libs.room.compiler)
+    kapt(libs.room.compiler)
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
 
@@ -83,7 +85,8 @@ dependencies {
     implementation(libs.converter.gson)
 
     // Hilt
-    ksp(libs.hilt.compiler)
+    //ksp(libs.hilt.compiler)
+    kapt(libs.hilt.compiler)
     implementation(libs.hilt.android)
     implementation(libs.hilt.navigation.compose)
 
@@ -92,4 +95,7 @@ dependencies {
 
     // Coil
     implementation(libs.coil.compose)
+
+    // Pager
+    implementation(libs.accompanist.pager)
 }
