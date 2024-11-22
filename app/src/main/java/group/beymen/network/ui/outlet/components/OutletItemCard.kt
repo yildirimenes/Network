@@ -9,25 +9,19 @@ import androidx.compose.material3.Card
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import group.beymen.network.ui.components.NetworkImageComponents
-import group.beymen.network.ui.outlet.openLink
 
 @Composable
-fun OutletItemCard(imageUrl: String, link: String?) {
-
-    val context = LocalContext.current
-
+fun OutletItemCard(
+    imageUrl: String,
+    onClick: () -> Unit
+) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .height(300.dp)
-            .clickable {
-                link?.let {
-                    openLink(context, it)
-                }
-            },
+            .clickable { onClick() },
     ) {
         NetworkImageComponents(
             url = imageUrl,

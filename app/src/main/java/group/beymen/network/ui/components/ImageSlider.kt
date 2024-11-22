@@ -1,6 +1,7 @@
 package group.beymen.network.ui.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -23,13 +24,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import group.beymen.network.data.model.homepage.MainPageContent
+import group.beymen.network.data.model.homepage.HomePageContent
 import kotlinx.coroutines.delay
 
 @Composable
-fun ImageSlider(itemList: List<MainPageContent>, duration: Int) {
-    val images = itemList.mapNotNull { it.ImageUrl }
-    val pagerState = rememberPagerState(pageCount = { images.size })
+fun ImageSlider(
+    itemList: List<HomePageContent>,
+    duration: Int,
+    onClickItem: (productId: Int?, categoryId: Int?, webUrl: String?) -> Unit
+) {
+    val pagerState = rememberPagerState(pageCount = { itemList.size })
 
     LaunchedEffect(Unit) {
         while (true) {
@@ -52,10 +56,18 @@ fun ImageSlider(itemList: List<MainPageContent>, duration: Int) {
                 state = pagerState,
                 modifier = Modifier.fillMaxSize()
             ) { currentPage ->
-                images[currentPage].let { imageUrl ->
+                val currentItem = itemList[currentPage]
+                currentItem.ImageUrl?.let { imageUrl ->
                     Card(
                         modifier = Modifier
-                            .fillMaxSize(),
+                            .fillMaxSize()
+                            .clickable {
+                                onClickItem(
+                                    currentItem.ProductId?.toIntOrNull(),
+                                    currentItem.CategoryID?.toIntOrNull(),
+                                    currentItem.Link
+                                )
+                            },
                         elevation = CardDefaults.cardElevation(
                             defaultElevation = 8.dp
                         ),
@@ -73,7 +85,7 @@ fun ImageSlider(itemList: List<MainPageContent>, duration: Int) {
         }
 
         PageIndicator(
-            pageCount = images.size,
+            pageCount = itemList.size,
             currentPage = pagerState.currentPage,
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
@@ -81,7 +93,6 @@ fun ImageSlider(itemList: List<MainPageContent>, duration: Int) {
         )
     }
 }
-
 
 @Composable
 fun PageIndicator(pageCount: Int, currentPage: Int, modifier: Modifier = Modifier) {

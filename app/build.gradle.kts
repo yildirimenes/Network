@@ -98,4 +98,8 @@ dependencies {
 
     // Pager
     implementation(libs.accompanist.pager)
+    implementation(libs.accompanist.pager.indicators)
+    implementation ("com.google.accompanist:accompanist-drawablepainter:0.28.0")
+
+
 }

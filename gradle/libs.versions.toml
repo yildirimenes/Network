@@ -18,7 +18,7 @@ hilt = "2.52"
 hiltNavigationCompose = "1.2.0"
 navigation = "2.8.1"
 composeMaterial = "1.4.0"
-drawablePainter = "0.35.0-alpha"
+pager = "0.30.1"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -49,7 +49,9 @@ hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-com
 navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation" }
 coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coilVersion" }
 compose-material = { group = "androidx.wear.compose", name = "compose-material", version.ref = "composeMaterial" }
-accompanist-pager = {group="com.google.accompanist",name="accompanist-drawablepainter", version.ref = "drawablePainter"}
+accompanist-pager = { group = "com.google.accompanist", name = "accompanist-pager", version.ref = "pager" }
+accompanist-pager-indicators = { group = "com.google.accompanist", name = "accompanist-pager-indicators", version.ref = "pager" }
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }

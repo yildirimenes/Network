@@ -1,10 +1,6 @@
 package group.beymen.network.data.model.homepage
 
-data class MainPageItem(
-    val Code: String?,
-    val Duration: Int?,
-    val ItemList: List<MainPageContent>?,
-    val ContentItemList: List<MainPageContent>?,
+data class HomePageContent(
     val Type: String?,
     val ImageUrl: String?,
     val VideoUrl: String?,

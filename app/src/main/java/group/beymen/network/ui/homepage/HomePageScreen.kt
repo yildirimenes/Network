@@ -1,6 +1,7 @@
 package group.beymen.network.ui.homepage
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -23,16 +24,19 @@ import group.beymen.network.ui.components.NetworkImageComponents
 import group.beymen.network.util.Resource
 
 @Composable
-fun HomePageScreen(navController: NavHostController, homeViewModel: HomeViewModel = hiltViewModel()) {
-    val mainPageState = homeViewModel.mainPageState.value
+fun HomePageScreen(
+    navController: NavHostController,
+    homeViewModel: HomeViewModel = hiltViewModel(),
+    onClickItem: (productId: Int?, categoryId: Int?, webUrl: String?) -> Unit
+) {
+    val homePageState = homeViewModel.mainPageState.value
 
-
-    when (mainPageState) {
+    when (homePageState) {
         is Resource.Loading -> {
             LoadingBarComponents()
         }
         is Resource.Success -> {
-            mainPageState.data?.Result?.let { result ->
+            homePageState.data?.Result?.let { result ->
                 LazyColumn(
                     modifier = Modifier
                         .background(Color.White)
@@ -42,26 +46,41 @@ fun HomePageScreen(navController: NavHostController, homeViewModel: HomeViewMode
                 ) {
                     // Vitrin Slider için ImageSlider
                     val vitrinSliderItems = result.filter { it.Code == "vitrin-slider" }
-                    vitrinSliderItems.forEach { sliderItem ->
-                        sliderItem.ItemList?.let { itemList ->
-                            sliderItem.Duration?.let { duration ->
-                                item {
-                                    ImageSlider(itemList = itemList, duration = duration)
+                        .flatMap { it.ItemList ?: emptyList() }
+
+                    if (vitrinSliderItems.isNotEmpty()) {
+                        item {
+                            ImageSlider(
+                                itemList = vitrinSliderItems,
+                                duration = 3000,
+                                onClickItem = { productId, categoryId, webUrl ->
+                                    onClickItem(productId, categoryId, webUrl)
                                 }
-                            }
+                            )
                         }
                     }
 
-                    val listItems = result.filter { it.Type == "List" }
                     // Diğer List Tipindeki Resimler için LazyColumn item'ları
+                    val listItems = result.filter { it.Type == "List" }
                     items(listItems) { item ->
-                        item.ImageUrl?.let {
-                            NetworkImageComponents(
-                                url = it,
+                        item.ImageUrl?.let { imageUrl ->
+                            Box(
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .height(400.dp)
-                            )
+                                    .height(450.dp)
+                                    .clickable {
+                                        onClickItem(
+                                            item.ProductId?.toIntOrNull(),
+                                            item.CategoryID?.toIntOrNull(),
+                                            item.Link
+                                        )
+                                    }
+                            ) {
+                                NetworkImageComponents(
+                                    url = imageUrl,
+                                    modifier = Modifier.fillMaxSize()
+                                )
+                            }
                         }
                     }
                 }
@@ -72,7 +91,7 @@ fun HomePageScreen(navController: NavHostController, homeViewModel: HomeViewMode
                 modifier = Modifier.fillMaxSize(),
                 contentAlignment = Alignment.Center
             ) {
-                Text(text = "${mainPageState.message}")
+                Text(text = "${homePageState.message}")
             }
         }
     }
