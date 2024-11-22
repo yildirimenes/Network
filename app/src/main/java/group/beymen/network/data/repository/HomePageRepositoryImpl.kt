@@ -1,16 +1,16 @@
 package group.beymen.network.data.repository
 
-import group.beymen.network.data.model.homepage.MainPageResponse
-import group.beymen.network.data.source.remote.MainPageService
+import group.beymen.network.data.model.homepage.HomePageResponse
+import group.beymen.network.data.source.remote.HomePageService
 import group.beymen.network.util.Resource
 import javax.inject.Inject
 
-class MainPagePageRepositoryImpl @Inject constructor(
-    private val mainPageService: MainPageService
-) : MainPageRepository {
-    override suspend fun getMainPage(): Resource<MainPageResponse> {
+class HomePageRepositoryImpl @Inject constructor(
+    private val homePageService: HomePageService
+) : HomePageRepository {
+    override suspend fun getMainPage(): Resource<HomePageResponse> {
         return try {
-            val response = mainPageService.getMainPage()
+            val response = homePageService.getMainPage()
             if (response.isSuccessful) {
                 response.body()?.let {
                     Resource.Success(it)

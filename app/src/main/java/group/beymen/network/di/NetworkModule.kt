@@ -1,12 +1,13 @@
 package group.beymen.network.di
 
-import group.beymen.network.data.source.remote.MainPageService
+import group.beymen.network.data.source.remote.HomePageService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import group.beymen.network.common.Constants.BASE_URL
 import group.beymen.network.data.source.remote.OutletPageService
+import group.beymen.network.data.source.remote.ProductService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -26,8 +27,8 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideMainService(retrofit: Retrofit): MainPageService {
-        return retrofit.create(MainPageService::class.java)
+    fun provideMainService(retrofit: Retrofit): HomePageService {
+        return retrofit.create(HomePageService::class.java)
     }
 
     @Provides
@@ -35,4 +36,11 @@ object NetworkModule {
     fun provideOutletService(retrofit: Retrofit): OutletPageService {
         return retrofit.create(OutletPageService::class.java)
     }
+
+    @Provides
+    @Singleton
+    fun provideProductService(retrofit: Retrofit): ProductService {
+        return retrofit.create(ProductService::class.java)
+    }
+
 }
