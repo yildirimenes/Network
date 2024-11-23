@@ -10,8 +10,10 @@ import androidx.navigation.navArgument
 import group.beymen.network.common.UiConfigurationState
 import group.beymen.network.ui.account.AccountScreen
 import group.beymen.network.data.model.main.BottomBarModel
+import group.beymen.network.ui.favorite.FavoriteScreen
 import group.beymen.network.ui.homepage.HomePageScreen
 import group.beymen.network.ui.outlet.OutletScreen
+import group.beymen.network.ui.productdetail.ProductDetailScreen
 import group.beymen.network.ui.productlist.ProductListScreen
 
 fun NavGraphBuilder.addHomeGraph(
@@ -51,8 +53,9 @@ fun NavGraphBuilder.addProductListGraph(
         ProductListScreen(
             categoryId = categoryId,
             onProductClick = { productId ->
-                navController.navigate("productDetail/$productId")
-            }
+                navController.navigate("productDetail/$productId") // Ürün detayına yönlendirme
+            },
+            onBackClick = { navController.popBackStack() }
         )
     }
 }
@@ -80,6 +83,14 @@ fun NavGraphBuilder.addOutletGraph(navController: NavHostController) {
     }
 }
 
+fun NavGraphBuilder.addFavoriteGraph(
+    navController: NavHostController,
+    configuration: MutableState<UiConfigurationState>) {
+    composable(route = BottomBarModel.Favorite.route) {
+        FavoriteScreen(navController)
+    }
+}
+
 fun NavGraphBuilder.addAccountGraph(
     navController: NavHostController,
     configuration: MutableState<UiConfigurationState>) {
@@ -87,3 +98,17 @@ fun NavGraphBuilder.addAccountGraph(
         AccountScreen(navController)
     }
 }
+
+fun NavGraphBuilder.addProductDetailGraph(navController: NavHostController) {
+    composable(
+        route = "productDetail/{productId}",
+        arguments = listOf(navArgument("productId") { type = NavType.IntType })
+    ) { backStackEntry ->
+        val productId = backStackEntry.arguments?.getInt("productId") ?: 0
+        ProductDetailScreen(
+            productId = productId,
+            onBackClick = { navController.popBackStack() }
+        )
+    }
+}
+

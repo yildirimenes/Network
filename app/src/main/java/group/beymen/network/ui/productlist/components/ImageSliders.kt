@@ -16,8 +16,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import group.beymen.network.R
 import group.beymen.network.data.model.productlist.Media
 
 @Composable
@@ -39,7 +41,10 @@ fun ImageSliders(mediaList: List<Media>) {
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .wrapContentHeight(unbounded = true)
+                    .wrapContentHeight(unbounded = true),
+                placeholder = painterResource(id = R.drawable.app_logo),
+
+
             )
         }
 

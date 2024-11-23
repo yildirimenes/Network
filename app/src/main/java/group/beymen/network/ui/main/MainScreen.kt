@@ -22,6 +22,7 @@ fun MainScreen(
     val configuration = remember { mutableStateOf(UiConfigurationState()) }
 
     Scaffold(
+        /*
         topBar = {
             TopAppBarComponents(
                 currentLanguage = currentLanguage,
@@ -29,6 +30,7 @@ fun MainScreen(
             )
         },
         bottomBar = { BottomBarComponents(navController = navController) }
+        */
     ) {
         MainNavHost(navController = navController, configuration = configuration)
     }

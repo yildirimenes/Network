@@ -3,7 +3,6 @@ package group.beymen.network.ui.productlist
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -24,9 +23,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.wear.compose.material.CircularProgressIndicator
+import group.beymen.network.ui.components.LoadingBarComponents
 import group.beymen.network.ui.productlist.components.ProductItem
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -34,7 +32,8 @@ import group.beymen.network.ui.productlist.components.ProductItem
 fun ProductListScreen(
     categoryId: Int,
     viewModel: ProductListViewModel = hiltViewModel(),
-    onProductClick: (Int) -> Unit
+    onProductClick: (Int) -> Unit,
+    onBackClick: () -> Unit
 ) {
     val state by viewModel.state.collectAsState()
 
@@ -48,7 +47,7 @@ fun ProductListScreen(
             TopAppBar(
                 title = { Text("Products") },
                 navigationIcon = {
-                    IconButton(onClick = { /* Handle back navigation */ }) {
+                    IconButton(onClick = { onBackClick() }) {
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
                     }
                 }
@@ -56,11 +55,7 @@ fun ProductListScreen(
         },
         content = { padding ->
             when {
-                state.isLoading -> CircularProgressIndicator(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .wrapContentSize(Alignment.Center)
-                )
+                state.isLoading -> LoadingBarComponents()
                 state.errorMessage != null -> Text(
                     text = state.errorMessage!!,
                     modifier = Modifier
@@ -82,7 +77,9 @@ fun ProductListScreen(
                             itemsIndexed(state.products) { index, product ->
                                 ProductItem(
                                     product = product,
-                                    onProductClick = { /*onProductClick(product.ID)*/ },
+                                    onProductClick = {
+                                        onProductClick(product.ID)
+                                    },
                                     onFavoriteClick = { /* Handle favorite click */ }
                                 )
 
@@ -93,11 +90,7 @@ fun ProductListScreen(
                         }
 
                         if (state.isLoading) {
-                            CircularProgressIndicator(
-                                modifier = Modifier
-                                    .align(Alignment.BottomCenter)
-                                    .padding(16.dp)
-                            )
+                            LoadingBarComponents()
                         }
                     }
                 }

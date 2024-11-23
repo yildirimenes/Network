@@ -7,6 +7,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import group.beymen.network.common.Constants.BASE_URL
 import group.beymen.network.data.source.remote.OutletPageService
+import group.beymen.network.data.source.remote.ProductDetailService
 import group.beymen.network.data.source.remote.ProductService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -41,6 +42,12 @@ object NetworkModule {
     @Singleton
     fun provideProductService(retrofit: Retrofit): ProductService {
         return retrofit.create(ProductService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideProductDetailService(retrofit: Retrofit): ProductDetailService {
+        return retrofit.create(ProductDetailService::class.java)
     }
 
 }

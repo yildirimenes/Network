@@ -30,6 +30,7 @@ fun BottomBarComponents(navController: NavHostController) {
     val screens = listOf(
         BottomBarModel.Home,
         BottomBarModel.Outlet,
+        BottomBarModel.Favorite,
         BottomBarModel.Account,
     )
     val navBackStackEntry by navController.currentBackStackEntryAsState()
@@ -67,14 +68,14 @@ fun RowScope.AddItem(
         label = {
             Text(
                 text = stringResource(id = screen.titleResId),
-                fontSize = 12.sp // Yazı boyutunu küçültmek için ayarlıyoruz
+                fontSize = 12.sp
             )
         },
         icon = {
             Icon(
                 imageVector = screen.icon,
                 contentDescription = "Navigation Icon",
-                modifier = Modifier.size(20.dp) // İkon boyutunu küçültüyoruz
+                modifier = Modifier.size(20.dp)
             )
         },
         selected = currentDestination?.hierarchy?.any {

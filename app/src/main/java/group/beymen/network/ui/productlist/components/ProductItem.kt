@@ -1,6 +1,5 @@
 package group.beymen.network.ui.productlist.components
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -26,12 +25,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.wear.compose.material.MaterialTheme
+import coil.compose.AsyncImage
 import group.beymen.network.R
 import group.beymen.network.data.model.productlist.Product
 
@@ -42,10 +43,11 @@ fun ProductItem(
     onFavoriteClick: () -> Unit
 ) {
     val showBottomSheet = remember { mutableStateOf(false) }
+    val classificationImageUrl = product.Classifications.firstOrNull()?.ImageUrl
 
     Column(
         modifier = Modifier
-            .padding(4.dp)
+            .padding(start = 4.dp, end = 4.dp)
             .clickable { onProductClick() }
             .fillMaxWidth()
     ) {
@@ -56,18 +58,17 @@ fun ProductItem(
         ) {
             ImageSliders(mediaList = product.MediaList ?: emptyList())
 
-            Text(
-                text = product.BrandName,
-                fontSize = 8.sp,
-                color = Color.White,
-                style = MaterialTheme.typography.body2.copy(fontWeight = FontWeight.Bold),
-                modifier = Modifier
-                    .align(Alignment.TopStart)
-                    .background(
-                        color = Color.LightGray.copy(alpha = 0.3f),
-                    )
-                    .padding(horizontal = 8.dp, vertical = 4.dp)
-            )
+            classificationImageUrl?.let { imageUrl ->
+                AsyncImage(
+                    model = imageUrl,
+                    contentDescription = "Classification Image",
+                    contentScale = ContentScale.Fit,
+                    modifier = Modifier
+                        .align(Alignment.TopStart)
+                        .size(60.dp)
+                        .padding(2.dp)
+                )
+            }
 
             IconButton(
                 onClick = { showBottomSheet.value = true },
@@ -79,7 +80,7 @@ fun ProductItem(
                 Icon(
                     painter = painterResource(id = R.drawable.ic_quick_add_basket),
                     contentDescription = "Show Picker",
-                    tint = Color.White
+                    tint = Color.LightGray,
                 )
             }
         }
