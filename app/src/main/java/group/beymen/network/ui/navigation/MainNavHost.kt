@@ -21,7 +21,9 @@ fun MainNavHost(
     ) {
         addHomeGraph(navController, configuration)
         addOutletGraph(navController)
+        addFavoriteGraph(navController, configuration)
         addAccountGraph(navController, configuration)
         addProductListGraph(navController)
+        addProductDetailGraph(navController)
     }
 }

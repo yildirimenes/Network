@@ -5,8 +5,12 @@
     <string name="outlet_screen">Outlet Screen</string>
     <string name="home_title">Home</string>
     <string name="outlet_title">Outlet</string>
+    <string name="favorite_title">Favorite</string>
     <string name="account_title">Account</string>
     <string name="hello_name">Hello, Enes Yıldırım</string>
     <string name="personal_info">Personal Information</string>
     <string name="dark_mode">Dark/Light Mode</string>
+    <string name="language_mode">Language Mode</string>
+    <string name="network_mode">Network Mode</string>
+
 </resources>

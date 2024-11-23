@@ -15,6 +15,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Build
+import androidx.compose.material.icons.filled.LocationOn
+import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
@@ -39,12 +41,16 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import group.beymen.network.R
 import group.beymen.network.ui.account.components.SettingsComponents
+import group.beymen.network.ui.main.components.BottomBarComponents
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AccountScreen(navController: NavHostController) {
     var isDarkModeEnabled by remember { mutableStateOf(false) }
+    var isNetworkModeEnabled by remember { mutableStateOf(false) }
+    var isLanguageModeEnabled by remember { mutableStateOf(false) }
+
     Scaffold(
         topBar = {
             Column {
@@ -55,7 +61,7 @@ fun AccountScreen(navController: NavHostController) {
                             contentAlignment = Alignment.Center
                         ) {
                             Text(
-                                text = stringResource(id = R.string.outlet_screen),
+                                text = stringResource(id = R.string.account_title),
                                 textAlign = TextAlign.Center,
                                 modifier = Modifier.fillMaxWidth()
                             )
@@ -65,6 +71,7 @@ fun AccountScreen(navController: NavHostController) {
                 HorizontalDivider(thickness = 1.dp, color = Color.LightGray)
             }
         },
+        bottomBar = { BottomBarComponents(navController = navController) },
         content = { paddingValues ->
             Column(
                 modifier = Modifier
@@ -126,6 +133,63 @@ fun AccountScreen(navController: NavHostController) {
                     )
                 }
                 HorizontalDivider(thickness = 1.dp, color = Color.LightGray)
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 12.dp, horizontal = 16.dp)
+                        .clickable { isNetworkModeEnabled = !isNetworkModeEnabled },
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Notifications,
+                            contentDescription = null,
+                            modifier = Modifier.size(24.dp)
+                        )
+                        Spacer(modifier = Modifier.width(16.dp))
+                        Text(
+                            text = stringResource(id = R.string.network_mode),
+                            fontSize = 18.sp,
+                            fontWeight = FontWeight.Normal
+                        )
+                    }
+                    Switch(
+                        checked = isNetworkModeEnabled,
+                        onCheckedChange = { isNetworkModeEnabled = it }
+                    )
+                }
+                HorizontalDivider(thickness = 1.dp, color = Color.LightGray)
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 12.dp, horizontal = 16.dp)
+                        .clickable { isLanguageModeEnabled = !isLanguageModeEnabled },
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.LocationOn,
+                            contentDescription = null,
+                            modifier = Modifier.size(24.dp)
+                        )
+                        Spacer(modifier = Modifier.width(16.dp))
+                        Text(
+                            text = stringResource(id = R.string.language_mode),
+                            fontSize = 18.sp,
+                            fontWeight = FontWeight.Normal
+                        )
+                    }
+                    Switch(
+                        checked = isLanguageModeEnabled,
+                        onCheckedChange = { isLanguageModeEnabled = it }
+                    )
+                }
             }
         }
     )
