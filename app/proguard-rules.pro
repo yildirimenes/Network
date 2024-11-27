@@ -1,21 +1,66 @@
-# Add project specific ProGuard rules here.
-# You can control the set of applied configuration files using the
-# proguardFiles setting in build.gradle.
-#
-# For more details, see
-#   http://developer.android.com/guide/developing/tools/proguard.html
+# Preserve application-specific models and data classes
+-keep class group.beymen.network.data.model.** { *; }
+-keep class group.beymen.network.data.source.local.** { *; }
+-keep class group.beymen.network.data.repository.** { *; }
 
-# If your project uses WebView with JS, uncomment the following
-# and specify the fully qualified class name to the JavaScript interface
-# class:
-#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
-#   public *;
-#}
+# Prevent obfuscation of Hilt-generated classes and modules
+-keep class dagger.hilt.** { *; }
+-keep class dagger.hilt.internal.** { *; }
+-keep class androidx.hilt.** { *; }
+-keep class dagger.internal.codegen.** { *; }
 
-# Uncomment this to preserve the line number information for
-# debugging stack traces.
-#-keepattributes SourceFile,LineNumberTable
+# Preserve Retrofit interfaces and serialized names
+-keepattributes Signature
+-keepattributes *Annotation*
+-keep class retrofit2.** { *; }
+-keep interface retrofit2.** { *; }
 
-# If you keep the line number information, uncomment this to
-# hide the original source file name.
-#-renamesourcefileattribute SourceFile
+# Gson rules to keep serialized field names
+-keep class com.google.gson.annotations.SerializedName
+-keepattributes *Annotation*
+
+# Room database rules
+-keep class androidx.room.** { *; }
+-keep class androidx.sqlite.db.** { *; }
+-keepattributes *Annotation*
+
+# Jetpack Compose rules
+-keep class androidx.compose.** { *; }
+-keepclassmembers class * {
+    @androidx.compose.runtime.Composable <methods>;
+}
+-dontwarn androidx.compose.**
+
+# Prevent stripping resources and layout ids
+-keepclassmembers class * {
+    @androidx.annotation.IdRes <fields>;
+}
+-keepclassmembers class * {
+    @androidx.annotation.StringRes <fields>;
+}
+
+# OkHttp rules
+-keep class okhttp3.** { *; }
+-dontwarn okhttp3.**
+
+# Logging libraries (if used)
+-assumenosideeffects class android.util.Log {
+    public static *** d(...);
+    public static *** v(...);
+    public static *** i(...);
+    public static *** w(...);
+    public static *** e(...);
+}
+
+# Debugging stack traces
+-keepattributes SourceFile,LineNumberTable
+
+# Hiding original source file names
+-renamesourcefileattribute SourceFile
+
+# Support libraries and other framework components
+-dontwarn android.arch.**
+-dontwarn android.support.**
+-dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
+-dontwarn javax.annotation.Nullable
+-dontwarn javax.annotation.ParametersAreNonnullByDefault
