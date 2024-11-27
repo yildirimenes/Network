@@ -13,6 +13,9 @@
     <string name="language_mode">Dil Seçenekleri</string>
     <string name="network_mode">Network Seçenekleri</string>
     <string name="switch_language">Türkçe/İngilizce</string>
+    <string name="root_warning_title">Cihaz Desteklenmiyor</string>
+    <string name="root_warning_message">Cihazınızın rootlu olduğu tespit edildi. Güvenlik nedeniyle bu uygulama rootlu cihazlarda çalışamaz.</string>
+    <string name="exit">Çıkış</string>
 
 
 </resources>

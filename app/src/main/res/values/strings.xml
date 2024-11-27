@@ -13,5 +13,8 @@
     <string name="language_mode">Language Mode</string>
     <string name="network_mode">Network Mode</string>
     <string name="switch_language">Turkish/English</string>
+    <string name="root_warning_title">Device Not Supported</string>
+    <string name="root_warning_message">Your device appears to be rooted. For security reasons, this application cannot run on rooted devices.</string>
+    <string name="exit">Exit</string>
 
 </resources>
