@@ -111,6 +111,16 @@ data class Stock(
 )
 
 data class OtherProductImages(
+    val ProductId: Int,
     val Style: String,
-    val ColorName : String
+    val ColorName: String,
+    val CdnPath: String,
+    val Id: Int,
+    val MediaFileId: Int,
+    val MediaFormat: String?,
+    val SizeId: Int,
+    val DisplayOrder: Int,
+    val Code: String?,
+    val Height: Int,
+    val Width: Int
 )

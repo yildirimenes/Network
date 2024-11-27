@@ -1,8 +1,10 @@
 package group.beymen.network.data.source.remote
 
 import group.beymen.network.data.model.BaseResponseModel
+import group.beymen.network.data.model.productlist.Product
 import group.beymen.network.data.model.productlist.ProductListResponseModel
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ProductService {
@@ -17,4 +19,11 @@ interface ProductService {
         @Query("FilterIDList") filters: String?,
         @Query("fiyat-araligi") priceRange: String?
     ): BaseResponseModel<ProductListResponseModel>
+
+    /*
+    @GET("mobile2/mbProduct/ProductList/{id}")
+    suspend fun getProductDetailsById(
+        @Path("id") productId: Int
+    ): Product*/
+
 }

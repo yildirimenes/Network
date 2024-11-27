@@ -54,11 +54,13 @@ class ProductListViewModel @Inject constructor(
                     }
                     is NetworkResult.OnSuccess -> {
                         val newProducts = result.data?.ProductList ?: emptyList()
+                        val response = result.data
                         isLastPage = newProducts.isEmpty()
                         currentPage = page
                         _state.update {
                             it.copy(
                                 isLoading = false,
+                                productModel = response,
                                 products = it.products + newProducts
                             )
                         }

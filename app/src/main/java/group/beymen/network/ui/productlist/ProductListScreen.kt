@@ -24,12 +24,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import group.beymen.network.ui.components.LoadingBarComponents
 import group.beymen.network.ui.productlist.components.ProductItem
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProductListScreen(
+    navController: NavHostController,
     categoryId: Int,
     viewModel: ProductListViewModel = hiltViewModel(),
     onProductClick: (Int) -> Unit,
@@ -45,7 +47,11 @@ fun ProductListScreen(
         modifier = Modifier.fillMaxSize(),
         topBar = {
             TopAppBar(
-                title = { Text("Products") },
+                title = {
+                    val categoryName = state.productModel?.CategoryName ?: "Products"
+                    val totalItemCount = state.productModel?.TotalItemCount ?: 0
+                    Text("$categoryName [$totalItemCount]")
+                },
                 navigationIcon = {
                     IconButton(onClick = { onBackClick() }) {
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
@@ -80,7 +86,15 @@ fun ProductListScreen(
                                     onProductClick = {
                                         onProductClick(product.ID)
                                     },
-                                    onFavoriteClick = { /* Handle favorite click */ }
+                                    onFavoriteClick = {
+                                        /*
+                                        if (state.favoriteProducts.contains(product.ID)) {
+                                            viewModel.removeFavorite(product.ID)
+                                        } else {
+                                            viewModel.addFavorite(product.toFavoriteProduct())
+                                        }
+                                        */
+                                    }
                                 )
 
                                 if (index == state.products.lastIndex) {
