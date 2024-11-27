@@ -12,9 +12,11 @@ import androidx.compose.runtime.setValue
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import dagger.hilt.android.AndroidEntryPoint
 import group.beymen.network.common.LanguageChangeHelper
+import group.beymen.network.ui.components.RootWarningScreen
 import group.beymen.network.ui.main.MainScreen
 import group.beymen.network.ui.main.MainViewModel
 import group.beymen.network.ui.theme.MyappTheme
+import group.beymen.network.util.RootUtil
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -25,8 +27,19 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         mainViewModel.loginCheck()
+
+        val isDeviceRooted = RootUtil.isDeviceRooted
+        if (isDeviceRooted) {
+            setContent {
+                MyappTheme {
+                    RootWarningScreen(onExitClick = { finishAffinity() })
+                }
+            }
+            return
+        }
+
         installSplashScreen().apply {
-            setKeepOnScreenCondition{
+            setKeepOnScreenCondition {
                 mainViewModel.isLoading.value
             }
         }
