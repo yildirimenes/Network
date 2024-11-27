@@ -51,6 +51,7 @@ fun NavGraphBuilder.addProductListGraph(
     ) { backStackEntry ->
         val categoryId = backStackEntry.arguments?.getInt("categoryId") ?: 0
         ProductListScreen(
+            navController = navController,
             categoryId = categoryId,
             onProductClick = { productId ->
                 navController.navigate("productDetail/$productId") // Ürün detayına yönlendirme
@@ -93,9 +94,15 @@ fun NavGraphBuilder.addFavoriteGraph(
 
 fun NavGraphBuilder.addAccountGraph(
     navController: NavHostController,
-    configuration: MutableState<UiConfigurationState>) {
+    currentLanguage: String,
+    onLanguageChange: (String) -> Unit
+) {
     composable(route = BottomBarModel.Account.route) {
-        AccountScreen(navController)
+        AccountScreen(
+            navController = navController,
+            currentLanguage = currentLanguage,
+            onLanguageChange = onLanguageChange
+        )
     }
 }
 

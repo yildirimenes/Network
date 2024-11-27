@@ -5,7 +5,8 @@ import group.beymen.network.data.model.productlist.ProductListResponseModel
 
 data class ProductListState(
     val isLoading: Boolean = false,
-    val productModel: List<ProductListResponseModel> = emptyList(),
+    val productModel: ProductListResponseModel? = null,
     val products: List<Product> = emptyList(),
-    val errorMessage: String? = null
+    val errorMessage: String? = null,
+    val favoriteProducts: List<Int> = emptyList(),
 )

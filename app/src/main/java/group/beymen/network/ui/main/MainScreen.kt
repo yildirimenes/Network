@@ -9,7 +9,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import group.beymen.network.common.UiConfigurationState
 import group.beymen.network.ui.main.components.BottomBarComponents
-import group.beymen.network.ui.main.components.TopAppBarComponents
 import group.beymen.network.ui.navigation.MainNavHost
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -22,16 +21,13 @@ fun MainScreen(
     val configuration = remember { mutableStateOf(UiConfigurationState()) }
 
     Scaffold(
-        /*
-        topBar = {
-            TopAppBarComponents(
-                currentLanguage = currentLanguage,
-                onLanguageChange = onLanguageChange
-            )
-        },
         bottomBar = { BottomBarComponents(navController = navController) }
-        */
     ) {
-        MainNavHost(navController = navController, configuration = configuration)
+        MainNavHost(
+            navController = navController,
+            configuration = configuration,
+            currentLanguage = currentLanguage,
+            onLanguageChange = onLanguageChange
+        )
     }
 }

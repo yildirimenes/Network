@@ -15,11 +15,14 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -39,11 +42,13 @@ import group.beymen.network.data.model.productlist.Product
 @Composable
 fun ProductItem(
     product: Product,
+    //viewModel: FavoriteViewModel, // Pass FavoriteViewModel here
     onProductClick: () -> Unit,
     onFavoriteClick: () -> Unit
 ) {
     val showBottomSheet = remember { mutableStateOf(false) }
     val classificationImageUrl = product.Classifications.firstOrNull()?.ImageUrl
+    val isFavorited = remember { mutableStateOf(false) } // Track favorite state (replace with actual state in ViewModel)
 
     Column(
         modifier = Modifier
@@ -100,9 +105,23 @@ fun ProductItem(
                 overflow = TextOverflow.Ellipsis,
                 modifier = Modifier.weight(1f)
             )
-            IconButton(onClick = { onFavoriteClick() }) {
+            IconButton(
+                onClick = {
+                    /*
+                    isFavorited.value = !isFavorited.value
+                    if (isFavorited.value) {
+                        viewModel.addFavorite(product.toFavoriteProduct())
+                    } else {
+                        viewModel.removeFavorite(product.ID)
+                    }*/
+                },
+                modifier = Modifier
+                    //.align(Alignment.TopEnd)
+                    .padding(4.dp)
+                    .size(32.dp)
+            ) {
                 Icon(
-                    imageVector = Icons.Default.FavoriteBorder,
+                    imageVector = if (isFavorited.value) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
                     contentDescription = "Add to Favorites"
                 )
             }

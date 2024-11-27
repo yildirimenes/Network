@@ -13,16 +13,23 @@ fun MainNavHost(
     navController: NavHostController,
     modifier: Modifier = Modifier,
     configuration: MutableState<UiConfigurationState>,
+    currentLanguage: String,
+    onLanguageChange: (String) -> Unit,
+    startDestination: String = BottomBarModel.Home.route
 ) {
     NavHost(
         navController = navController,
-        startDestination = BottomBarModel.Home.route,
+        startDestination = startDestination,
         modifier = modifier
     ) {
         addHomeGraph(navController, configuration)
         addOutletGraph(navController)
         addFavoriteGraph(navController, configuration)
-        addAccountGraph(navController, configuration)
+        addAccountGraph(
+            navController = navController,
+            currentLanguage = currentLanguage,
+            onLanguageChange = onLanguageChange
+        )
         addProductListGraph(navController)
         addProductDetailGraph(navController)
     }

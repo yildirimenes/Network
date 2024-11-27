@@ -12,6 +12,7 @@
     <string name="dark_mode">Gece/Gündüz Modu</string>
     <string name="language_mode">Dil Seçenekleri</string>
     <string name="network_mode">Network Seçenekleri</string>
+    <string name="switch_language">Türkçe/İngilizce</string>
 
 
 </resources>

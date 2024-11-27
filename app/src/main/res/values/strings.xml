@@ -12,5 +12,6 @@
     <string name="dark_mode">Dark/Light Mode</string>
     <string name="language_mode">Language Mode</string>
     <string name="network_mode">Network Mode</string>
+    <string name="switch_language">Turkish/English</string>
 
 </resources>
