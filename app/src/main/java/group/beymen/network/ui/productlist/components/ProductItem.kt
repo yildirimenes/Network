@@ -21,8 +21,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -30,6 +28,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -38,17 +37,19 @@ import androidx.wear.compose.material.MaterialTheme
 import coil.compose.AsyncImage
 import group.beymen.network.R
 import group.beymen.network.data.model.productlist.Product
+import group.beymen.network.ui.theme.PriceRedColor
 
 @Composable
 fun ProductItem(
     product: Product,
-    //viewModel: FavoriteViewModel, // Pass FavoriteViewModel here
+    isFavorite: Boolean,
     onProductClick: () -> Unit,
     onFavoriteClick: () -> Unit
+
 ) {
     val showBottomSheet = remember { mutableStateOf(false) }
     val classificationImageUrl = product.Classifications.firstOrNull()?.ImageUrl
-    val isFavorited = remember { mutableStateOf(false) } // Track favorite state (replace with actual state in ViewModel)
+    val isFavorited = remember { mutableStateOf(false) }
 
     Column(
         modifier = Modifier
@@ -61,7 +62,7 @@ fun ProductItem(
                 .fillMaxWidth()
                 .wrapContentHeight()
         ) {
-            ImageSliders(mediaList = product.MediaList ?: emptyList())
+            ProductImageSliders(mediaList = product.MediaList ?: emptyList())
 
             classificationImageUrl?.let { imageUrl ->
                 AsyncImage(
@@ -107,16 +108,9 @@ fun ProductItem(
             )
             IconButton(
                 onClick = {
-                    /*
-                    isFavorited.value = !isFavorited.value
-                    if (isFavorited.value) {
-                        viewModel.addFavorite(product.toFavoriteProduct())
-                    } else {
-                        viewModel.removeFavorite(product.ID)
-                    }*/
+                    onFavoriteClick()
                 },
                 modifier = Modifier
-                    //.align(Alignment.TopEnd)
                     .padding(4.dp)
                     .size(32.dp)
             ) {
@@ -130,7 +124,7 @@ fun ProductItem(
         Spacer(modifier = Modifier.height(4.dp))
 
         Text(
-            text = "${product.LabelPrice} TL",
+            text = stringResource(id = R.string.label_price, product.LabelPrice),
             style = MaterialTheme.typography.body1.copy(fontWeight = FontWeight.Bold),
             modifier = Modifier.padding(horizontal = 8.dp)
         )
@@ -157,10 +151,10 @@ fun ProductItem(
                 Spacer(modifier = Modifier.width(4.dp))
 
                 Text(
-                    text = "${it.PromotedPrice} TL",
+                    text = stringResource(id = R.string.promoted_price, it.PromotedPrice),
                     style = MaterialTheme.typography.body2.copy(
                         fontSize = 12.sp,
-                        color = Color.Red,
+                        color = PriceRedColor,
                         fontWeight = FontWeight.Bold
                     ),
                     modifier = Modifier.align(Alignment.CenterVertically)
@@ -170,7 +164,7 @@ fun ProductItem(
     }
 
     if (showBottomSheet.value) {
-        ProductDetailBottomSheet(
+        ProductListBottomSheet(
             product = product,
             onClose = { showBottomSheet.value = false }
         )

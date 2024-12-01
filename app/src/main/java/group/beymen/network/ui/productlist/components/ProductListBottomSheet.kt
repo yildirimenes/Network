@@ -25,7 +25,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -33,6 +32,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
@@ -40,18 +40,18 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import group.beymen.network.R
 import group.beymen.network.data.model.productlist.Product
+import group.beymen.network.ui.theme.PriceRedColor
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ProductDetailBottomSheet(
+fun ProductListBottomSheet(
     product: Product,
     onClose: () -> Unit
 ) {
-    // State to hold the selected color
     val selectedColor = remember { mutableStateOf(product.OtherProductImages?.firstOrNull()) }
 
-    // State to update product details based on the selected color
     val selectedDetails = selectedColor.value
 
     ModalBottomSheet(
@@ -62,7 +62,6 @@ fun ProductDetailBottomSheet(
                 .fillMaxWidth()
                 .padding(16.dp)
         ) {
-            // Display updated name and price based on the selected color
             Text(
                 text = selectedDetails?.ColorName?.let { "${product.DisplayName} - $it" }
                     ?: product.DisplayName,
@@ -71,14 +70,12 @@ fun ProductDetailBottomSheet(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Display price information
             Text(
-                text = "${product.LabelPrice} TL",
+                text = stringResource(id = R.string.label_price, product.LabelPrice),
                 style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold)
             )
             Spacer(modifier = Modifier.height(8.dp))
 
-            // Display promotion details
             product.ProductPromotion?.let {
                 Row(
                     modifier = Modifier
@@ -99,10 +96,10 @@ fun ProductDetailBottomSheet(
                     Spacer(modifier = Modifier.width(4.dp))
 
                     Text(
-                        text = "${it.PromotedPrice} TL",
+                        text = stringResource(id = R.string.promoted_price, it.PromotedPrice),
                         style = MaterialTheme.typography.bodyMedium.copy(
                             fontSize = 12.sp,
-                            color = Color.Red,
+                            color = PriceRedColor,
                             fontWeight = FontWeight.Bold
                         ),
                         modifier = Modifier.align(Alignment.CenterVertically)
@@ -112,7 +109,6 @@ fun ProductDetailBottomSheet(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Display OtherProductImages in LazyRow
             LazyRow(
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
@@ -147,8 +143,9 @@ fun ProductDetailBottomSheet(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Display stock and size selection for the selected color
-            Text(text = "Beden Seç:", style = MaterialTheme.typography.bodyLarge)
+            Text(
+                text = stringResource(R.string.select_size),
+                style = MaterialTheme.typography.bodyLarge)
             Spacer(modifier = Modifier.height(4.dp))
             LazyRow(
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
@@ -170,7 +167,7 @@ fun ProductDetailBottomSheet(
                                 if (isSelected) Color.Black else if (isAvailable) Color.White else Color.LightGray
                             )
                             .clickable(enabled = isAvailable) {
-                                // Select size logic (optional, depends on your requirements)
+
                             }
                             .padding(horizontal = 8.dp, vertical = 4.dp)
                     ) {
@@ -193,7 +190,6 @@ fun ProductDetailBottomSheet(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Add to Cart Button
             Button(
                 onClick = { /* Handle Add to Cart */ },
                 shape = RectangleShape,
@@ -206,7 +202,7 @@ fun ProductDetailBottomSheet(
                 ),
                 elevation = ButtonDefaults.buttonElevation(defaultElevation = 0.dp)
             ) {
-                Text(text = "Sepete Ekle")
+                Text(text = stringResource(id = R.string.add_to_cart))
             }
         }
     }
@@ -215,7 +211,7 @@ fun ProductDetailBottomSheet(
 /*
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ProductDetailBottomSheet(
+fun ProductListBottomSheet(
     product: Product,
     onClose: () -> Unit,
     fetchProductById: (Int) -> Product // A function to fetch product data by ProductId

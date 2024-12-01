@@ -23,6 +23,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import group.beymen.network.ui.components.LoadingBarComponents
@@ -50,11 +51,13 @@ fun ProductListScreen(
                 title = {
                     val categoryName = state.productModel?.CategoryName ?: "Products"
                     val totalItemCount = state.productModel?.TotalItemCount ?: 0
-                    Text("$categoryName [$totalItemCount]")
+                    Text("$categoryName [$totalItemCount]", fontSize = 14.sp)
                 },
                 navigationIcon = {
                     IconButton(onClick = { onBackClick() }) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                        Icon(
+                            Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = "Back")
                     }
                 }
             )
@@ -83,18 +86,9 @@ fun ProductListScreen(
                             itemsIndexed(state.products) { index, product ->
                                 ProductItem(
                                     product = product,
-                                    onProductClick = {
-                                        onProductClick(product.ID)
-                                    },
-                                    onFavoriteClick = {
-                                        /*
-                                        if (state.favoriteProducts.contains(product.ID)) {
-                                            viewModel.removeFavorite(product.ID)
-                                        } else {
-                                            viewModel.addFavorite(product.toFavoriteProduct())
-                                        }
-                                        */
-                                    }
+                                    isFavorite = viewModel.isFavorite(product.ID),
+                                    onProductClick = { onProductClick(product.ID) },
+                                    onFavoriteClick = { viewModel.toggleFavorite(product) }
                                 )
 
                                 if (index == state.products.lastIndex) {

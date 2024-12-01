@@ -9,4 +9,5 @@ data class ProductListState(
     val products: List<Product> = emptyList(),
     val errorMessage: String? = null,
     val favoriteProducts: List<Int> = emptyList(),
+    val favoriteItems: List<Int> = emptyList()
 )

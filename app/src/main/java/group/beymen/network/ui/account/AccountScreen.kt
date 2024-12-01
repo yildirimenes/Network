@@ -14,8 +14,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Build
-import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Place
@@ -209,22 +207,31 @@ fun AccountScreen(
                     )
                 }
                 HorizontalDivider(thickness = 1.dp, color = Color.LightGray)
-                /* Language Dropdown
+                 //Language Dropdown
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(vertical = 12.dp, horizontal = 16.dp),
+                        .padding(vertical = 20.dp, horizontal = 16.dp),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Text(
-                        text = stringResource(id = R.string.language_mode),
-                        modifier = Modifier
-                            .padding(horizontal = 16.dp, vertical = 8.dp)
-                            .fillMaxWidth(),
-                        fontSize = 18.sp,
-                        fontWeight = FontWeight.Bold
-                    )
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier.weight(1f)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Place,
+                            contentDescription = null,
+                            modifier = Modifier.size(24.dp)
+                        )
+                        Spacer(modifier = Modifier.width(16.dp))
+                        Text(
+                            text = stringResource(id = R.string.language_mode),
+                            fontSize = 18.sp,
+                            fontWeight = FontWeight.Normal
+                        )
+                    }
+
                     LanguagesDropdown(
                         languagesList = listOf(
                             LanguageModel("en", "English", R.drawable.lang_en),
@@ -234,12 +241,11 @@ fun AccountScreen(
                         onCurrentLanguageChange = { newLanguage ->
                             onLanguageChange(newLanguage)
                             languageChangeHelper.changeLanguage(context, newLanguage)
-                        }
+                        },
+                        modifier = Modifier.weight(0.4f)
                     )
-                    Spacer(modifier = Modifier.height(16.dp))
                 }
                 HorizontalDivider(thickness = 1.dp, color = Color.LightGray)
-                */
 
             }
         }

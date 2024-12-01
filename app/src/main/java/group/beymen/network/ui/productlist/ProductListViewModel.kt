@@ -3,7 +3,11 @@ package group.beymen.network.ui.productlist
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import group.beymen.network.data.mapper.toFavoriteProductEntity
+import group.beymen.network.data.model.favorite.FavoriteProductEntity
+import group.beymen.network.data.model.productlist.Product
 import group.beymen.network.data.repository.ProductListRepository
+import group.beymen.network.data.repository.FavoriteRepository
 import group.beymen.network.util.NetworkResult
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -13,15 +17,23 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ProductListViewModel @Inject constructor(
-    private val repository: ProductListRepository
+    private val repository: ProductListRepository,
+    private val favoriteRepository: FavoriteRepository
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(ProductListState())
     val state: StateFlow<ProductListState> = _state
 
+    private val _favorites = MutableStateFlow<List<FavoriteProductEntity>>(emptyList())
+    val favorites: StateFlow<List<FavoriteProductEntity>> = _favorites
+
     private var currentPage = 1
     private var isLastPage = false
     private var isLoadingMore = false
+
+    init {
+        loadFavorites()
+    }
 
     fun loadProducts(
         categoryId: Int,
@@ -80,4 +92,29 @@ class ProductListViewModel @Inject constructor(
     fun loadNextPage(categoryId: Int) {
         loadProducts(categoryId = categoryId, page = currentPage + 1)
     }
+
+    private fun loadFavorites() {
+        viewModelScope.launch {
+            favoriteRepository.getFavorites().collect {
+                _favorites.value = it
+            }
+        }
+    }
+
+    fun toggleFavorite(product: Product) {
+        val favoriteProduct = product.toFavoriteProductEntity()
+        viewModelScope.launch {
+            if (_favorites.value.any { it.id == favoriteProduct.id }) {
+                favoriteRepository.removeFavorite(favoriteProduct)
+            } else {
+                favoriteRepository.addFavorite(favoriteProduct)
+            }
+        }
+    }
+
+    fun isFavorite(productId: Int): Boolean {
+        return _favorites.value.any { it.id == productId }
+    }
 }
+
+

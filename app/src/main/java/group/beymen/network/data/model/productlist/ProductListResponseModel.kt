@@ -48,7 +48,7 @@ data class Product(
     val DiscountLabelType: Int,
     val IsDiscountBadgeEnabled:Boolean?,
     val DisplayName: String,
-    val EstimatedSupplyDate: Any,
+    val EstimatedSupplyDate: Any?,
     val ExternalSystemCode: String,
     val FirstProductImageURL: String,
     val ID: Int,
@@ -61,7 +61,7 @@ data class Product(
     val ProductType: String,
     val SeasonPrice: Double,
     val StrikeThroughPriceToShowOnScreen: Double,
-    val TotalDiscount: Any,
+    val TotalDiscount: Any?,
     val VariantWithStockList: List<Stock>,
     val OtherProductImages : List<OtherProductImages>?,
     val ProductPromotion: ProductPromotion?

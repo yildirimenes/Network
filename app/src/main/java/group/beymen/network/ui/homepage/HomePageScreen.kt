@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -25,7 +24,8 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import group.beymen.network.R
-import group.beymen.network.ui.components.ImageSlider
+import group.beymen.network.ui.components.ErrorComponents
+import group.beymen.network.ui.components.HomeImageSlider
 import group.beymen.network.ui.components.LoadingBarComponents
 import group.beymen.network.ui.components.NetworkImageComponents
 import group.beymen.network.ui.main.components.BottomBarComponents
@@ -77,43 +77,51 @@ fun HomePageScreen(
                                 ),
                             verticalArrangement = Arrangement.spacedBy(16.dp)
                         ) {
-                            // Vitrin Slider için ImageSlider
-                            val vitrinSliderItems = result.filter { it.Code == "vitrin-slider" }
-                                .flatMap { it.ItemList ?: emptyList() }
-
-                            if (vitrinSliderItems.isNotEmpty()) {
-                                item {
-                                    ImageSlider(
-                                        itemList = vitrinSliderItems,
-                                        duration = 3000,
-                                        onClickItem = { productId, categoryId, webUrl ->
-                                            onClickItem(productId, categoryId, webUrl)
+                            items(result) { item ->
+                                when (item.Code) {
+                                    "vitrin-slider" -> {
+                                        val vitrinSliderItems = item.ItemList ?: emptyList()
+                                        if (vitrinSliderItems.isNotEmpty()) {
+                                            HomeImageSlider(
+                                                itemList = vitrinSliderItems,
+                                                duration = 3000,
+                                                onClickItem = { productId, categoryId, webUrl ->
+                                                    onClickItem(productId, categoryId, webUrl)
+                                                }
+                                            )
                                         }
-                                    )
-                                }
-                            }
+                                    }
 
-                            // Diğer List Tipindeki Resimler için LazyColumn item'ları
-                            val listItems = result.filter { it.Type == "List" }
-                            items(listItems) { item ->
-                                item.ImageUrl?.let { imageUrl ->
-                                    Box(
-                                        modifier = Modifier
-                                            .fillMaxWidth()
-                                            //.wrapContentHeight()
-                                            .height(450.dp)
-                                            .clickable {
-                                                onClickItem(
-                                                    item.ProductId?.toIntOrNull(),
-                                                    item.CategoryID?.toIntOrNull(),
-                                                    item.Link
+                                    "orta-slider" -> {
+                                        val ortaSliderItems = item.ItemList ?: emptyList()
+                                        if (ortaSliderItems.isNotEmpty()) {
+                                            HomeImageSlider(
+                                                itemList = ortaSliderItems,
+                                                duration = 3000,
+                                                onClickItem = { productId, categoryId, webUrl ->
+                                                    onClickItem(productId, categoryId, webUrl)
+                                                }
+                                            )
+                                        }
+                                    }
+
+                                    else -> {
+                                        if (item.Type == "List") {
+                                            item.ImageUrl?.let { imageUrl ->
+                                                NetworkImageComponents(
+                                                    url = imageUrl,
+                                                    modifier = Modifier
+                                                        .fillMaxWidth()
+                                                        .clickable {
+                                                            onClickItem(
+                                                                item.ProductId?.toIntOrNull(),
+                                                                item.CategoryID?.toIntOrNull(),
+                                                                item.Link
+                                                            )
+                                                        }
                                                 )
                                             }
-                                    ) {
-                                        NetworkImageComponents(
-                                            url = imageUrl,
-                                            modifier = Modifier.fillMaxSize()
-                                        )
+                                        }
                                     }
                                 }
                             }
@@ -121,12 +129,11 @@ fun HomePageScreen(
                     }
                 }
                 is Resource.Error -> {
-                    Box(
-                        modifier = Modifier.fillMaxSize(),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Text(text = "${homePageState.message}")
-                    }
+                    ErrorComponents(
+                        title = stringResource(id = R.string.app_name),
+                        message = homePageState.message ?: "Bir hata oluştu.",
+                        onRetry = { homeViewModel.getMainPage() }
+                    )
                 }
             }
         }
