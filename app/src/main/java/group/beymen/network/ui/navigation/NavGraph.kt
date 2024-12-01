@@ -2,6 +2,7 @@ package group.beymen.network.ui.navigation
 
 import android.net.Uri
 import androidx.compose.runtime.MutableState
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -54,7 +55,7 @@ fun NavGraphBuilder.addProductListGraph(
             navController = navController,
             categoryId = categoryId,
             onProductClick = { productId ->
-                navController.navigate("productDetail/$productId") // Ürün detayına yönlendirme
+                navController.navigate("productDetail/$productId")
             },
             onBackClick = { navController.popBackStack() }
         )
@@ -86,9 +87,19 @@ fun NavGraphBuilder.addOutletGraph(navController: NavHostController) {
 
 fun NavGraphBuilder.addFavoriteGraph(
     navController: NavHostController,
-    configuration: MutableState<UiConfigurationState>) {
+    configuration: MutableState<UiConfigurationState>
+) {
     composable(route = BottomBarModel.Favorite.route) {
-        FavoriteScreen(navController)
+        FavoriteScreen(
+            viewModel = hiltViewModel(),
+            onProductClick = { productId ->
+                navController.navigate("product_detail/$productId") {
+                    launchSingleTop = true
+                }
+            },
+            onBackClick = { navController.popBackStack() }
+
+        )
     }
 }
 
@@ -119,3 +130,14 @@ fun NavGraphBuilder.addProductDetailGraph(navController: NavHostController) {
     }
 }
 
+/*
+fun NavGraphBuilder.addSearchGraph(navController: NavHostController) {
+    composable("search") {
+        SearchScreen(
+            navController = navController,
+            onProductClick = { productId ->
+                navController.navigate("product_detail/$productId")
+            }
+        )
+    }
+}*/

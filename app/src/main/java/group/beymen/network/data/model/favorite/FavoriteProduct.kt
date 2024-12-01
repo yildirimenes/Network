@@ -1,11 +1,17 @@
 package group.beymen.network.data.model.favorite
-/*
+
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
 @Entity(tableName = "favorite_products")
-data class FavoriteProduct(
+data class FavoriteProductEntity(
     @PrimaryKey val id: Int,
-    val name: String,
+    val displayName: String,
+    val labelPrice: Double,
+    val promotedPrice: Double?,
     val imageUrl: String?,
-    val price: Double,
     val campaignTitle: String?,
-    val promotedPrice: String?
-)*/
+    val brandName: String?,
+    val discount: Int?,
+    val classificationImage: String?
+)

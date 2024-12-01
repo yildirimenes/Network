@@ -5,6 +5,8 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import group.beymen.network.data.repository.FavoriteRepository
+import group.beymen.network.data.repository.FavoriteRepositoryImpl
 import group.beymen.network.data.repository.HomePageRepository
 import group.beymen.network.data.repository.OutletPageRepositoryImpl
 import group.beymen.network.data.repository.OutletRepository
@@ -33,6 +35,10 @@ abstract class RepositoryModule {
     @Binds
     @Singleton
     abstract fun bindProductDetailRepository(repositoryImpl: ProductDetailRepositoryImpl): ProductDetailRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindFavoriteRepository(repositoryImpl: FavoriteRepositoryImpl): FavoriteRepository
 
 }
 

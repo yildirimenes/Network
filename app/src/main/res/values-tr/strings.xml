@@ -7,6 +7,7 @@
     <string name="outlet_title">Outlet</string>
     <string name="favorite_title">Fovoriler</string>
     <string name="account_title">Hesabım</string>
+    <string name="search_title">Arama</string>
     <string name="hello_name">Merhaba, Enes Yıldırım</string>
     <string name="personal_info">Kişisel Bilgilerim</string>
     <string name="dark_mode">Gece/Gündüz Modu</string>
@@ -16,6 +17,36 @@
     <string name="root_warning_title">Cihaz Desteklenmiyor</string>
     <string name="root_warning_message">Cihazınızın rootlu olduğu tespit edildi. Güvenlik nedeniyle bu uygulama rootlu cihazlarda çalışamaz.</string>
     <string name="exit">Çıkış</string>
+    <string name="confirm">Evet</string>
+    <string name="dismiss">Hayır</string>
+    <string name="no_connection_internet">Network bağlantısında sorun yaşıyoruz</string>
+    <string name="try_again">Yeniden Dene</string>
+    <string name="remove_item_question">Bu ürünü favorilerden kaldırmak istediğinizden emin misiniz?</string>
+    <string name="confirmation_icon">Onay Ikonu</string>
+    <string name="remove_item_desc">Favori Silme</string>
+    <string name="promoted_price"> %1$s TL</string>
+    <string name="label_price">%1$s TL</string>
+    <string name="no_items_favorite_message">Henüz favorilere eklenmiş bir ürün yok.</string>
+    <string name="favorites">Favoriler</string>
+    <string name="error_message">Hata: %1$s</string>
+    <string name="sample_size">Numune Bedeni: %1$s</string>
+    <string name="model_size">Manken Ölçüsü: %1$s</string>
+    <string name="detail_item">- %1$s</string>
+    <string name="ref_no">Ref No: %1$s</string>
+    <string name="product_details">Ürün Detay</string>
+    <string name="shirt_icon">Gömlek İkonu</string>
+    <string name="color_selection">Renk Seçimi:</string>
+    <string name="add_to_cart">SEPETE EKLE</string>
+    <string name="selected_size">Beden</string>
+    <string name="out_of_stock_notify">Tükendi. Gelince haber ver</string>
+    <string name="select_size">Beden Seçimi</string>
+
+
+
+
+
+
+
 
 
 </resources>
