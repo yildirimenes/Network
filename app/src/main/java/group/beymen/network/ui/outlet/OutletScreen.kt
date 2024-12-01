@@ -1,6 +1,7 @@
 package group.beymen.network.ui.outlet
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -25,8 +26,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import group.beymen.network.R
 import group.beymen.network.ui.components.LoadingBarComponents
+import group.beymen.network.ui.components.NetworkImageComponents
 import group.beymen.network.ui.main.components.BottomBarComponents
-import group.beymen.network.ui.outlet.components.OutletItemCard
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -71,7 +72,7 @@ fun OutletScreen(
                             .padding(paddingValues),
                         contentAlignment = Alignment.Center
                     ) {
-                        Text(text = "Hata: ${outletState.error}")
+                        Text(text = stringResource(id = R.string.error_message, outletState.error))
                     }
                 }
                 outletState.outletItems != null -> {
@@ -89,15 +90,17 @@ fun OutletScreen(
                     ) {
                         items(outletState.outletItems) { item ->
                             item.ImageUrl?.let { imageUrl ->
-                                OutletItemCard(
-                                    imageUrl = imageUrl,
-                                    onClick = {
-                                        onClickItem(
-                                            item.ProductId?.toIntOrNull(),
-                                            item.CategoryID?.toIntOrNull(),
-                                            item.Link
-                                        )
-                                    }
+                                NetworkImageComponents(
+                                    url = imageUrl,
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .clickable {
+                                            onClickItem(
+                                                item.ProductId?.toIntOrNull(),
+                                                item.CategoryID?.toIntOrNull(),
+                                                item.Link
+                                            )
+                                        }
                                 )
                             }
                         }

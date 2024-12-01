@@ -23,7 +23,7 @@ class HomeViewModel @Inject constructor(
         getMainPage()
     }
 
-    private fun getMainPage() {
+    fun getMainPage() {
         viewModelScope.launch {
             _mainPageState.value = Resource.Loading()
             _mainPageState.value = homePageRepository.getMainPage()

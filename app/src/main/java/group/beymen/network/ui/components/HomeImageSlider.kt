@@ -6,19 +6,12 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
@@ -30,7 +23,7 @@ import group.beymen.network.data.model.homepage.HomePageContent
 import kotlinx.coroutines.delay
 
 @Composable
-fun ImageSlider(
+fun HomeImageSlider(
     itemList: List<HomePageContent>,
     duration: Int,
     onClickItem: (productId: Int?, categoryId: Int?, webUrl: String?) -> Unit
@@ -48,51 +41,37 @@ fun ImageSlider(
     Column(
         modifier = Modifier.fillMaxWidth()
     ) {
-        Box(
+        HorizontalPager(
+            state = pagerState,
             modifier = Modifier
                 .fillMaxWidth()
-                .height(400.dp)
-                .background(Color.White)
-        ) {
-            HorizontalPager(
-                state = pagerState,
-                modifier = Modifier.fillMaxSize()
-            ) { currentPage ->
-                val currentItem = itemList[currentPage]
-                currentItem.ImageUrl?.let { imageUrl ->
-                    Card(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .clickable {
-                                onClickItem(
-                                    currentItem.ProductId?.toIntOrNull(),
-                                    currentItem.CategoryID?.toIntOrNull(),
-                                    currentItem.Link
-                                )
-                            },
-                        elevation = CardDefaults.cardElevation(
-                            defaultElevation = 8.dp
-                        ),
-                        shape = RoundedCornerShape(0.dp)
-                    ) {
-                        NetworkImageComponents(
-                            url = imageUrl,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .fillMaxHeight()
-                        )
-                    }
-                }
+        ) { currentPage ->
+            val currentItem = itemList[currentPage]
+            currentItem.ImageUrl?.let { imageUrl ->
+                NetworkImageComponents(
+                    url = imageUrl,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clickable {
+                            onClickItem(
+                                currentItem.ProductId?.toIntOrNull(),
+                                currentItem.CategoryID?.toIntOrNull(),
+                                currentItem.Link
+                            )
+                        }
+                )
             }
         }
 
-        PageIndicator(
-            pageCount = itemList.size,
-            currentPage = pagerState.currentPage,
-            modifier = Modifier
-                .align(Alignment.CenterHorizontally)
-                .padding(top = 16.dp)
-        )
+        if (itemList.size > 1) {
+            PageIndicator(
+                pageCount = itemList.size,
+                currentPage = pagerState.currentPage,
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally)
+                    .padding(top = 16.dp)
+            )
+        }
     }
 }
 
@@ -103,7 +82,9 @@ fun PageIndicator(pageCount: Int, currentPage: Int, modifier: Modifier = Modifie
         modifier = modifier
     ) {
         repeat(pageCount) {
-            IndicatorDots(isSelected = it == currentPage, modifier = Modifier.size(10.dp, 3.dp))
+            IndicatorDots(
+                isSelected = it == currentPage,
+                modifier = Modifier.size(10.dp, 3.dp))
         }
     }
 }

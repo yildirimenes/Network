@@ -23,7 +23,7 @@ import group.beymen.network.R
 import group.beymen.network.data.model.productlist.Media
 
 @Composable
-fun ImageSliders(mediaList: List<Media>) {
+fun ProductImageSliders(mediaList: List<Media>) {
     val pagerState = rememberPagerState(pageCount = { mediaList.size })
 
     Box(
@@ -42,9 +42,8 @@ fun ImageSliders(mediaList: List<Media>) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .wrapContentHeight(unbounded = true),
-                placeholder = painterResource(id = R.drawable.app_logo),
-
-
+                placeholder = painterResource(id = R.drawable.placeholder),
+                error = painterResource(id = R.drawable.placeholder)
             )
         }
 

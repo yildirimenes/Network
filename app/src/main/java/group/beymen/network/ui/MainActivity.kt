@@ -26,7 +26,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        mainViewModel.loginCheck()
+        mainViewModel.rootedController()
 
         val isDeviceRooted = RootUtil.isDeviceRooted
         if (isDeviceRooted) {
