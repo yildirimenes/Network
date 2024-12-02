@@ -80,7 +80,7 @@ class ProductListViewModel @Inject constructor(
                     is NetworkResult.OnError -> _state.update {
                         it.copy(
                             isLoading = false,
-                            errorMessage = result.message ?: "An error occurred"
+                            error = result.message ?: "An error occurred"
                         )
                     }
                 }

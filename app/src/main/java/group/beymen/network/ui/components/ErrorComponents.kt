@@ -20,6 +20,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import group.beymen.network.R
 
 @Composable
@@ -43,7 +44,8 @@ fun ErrorComponents(
                 text = title,
                 style = MaterialTheme.typography.titleMedium.copy(
                     fontWeight = FontWeight.Bold,
-                    color = Color.Black
+                    color = Color.Black,
+                    fontSize = 24.sp
                 ),
                 modifier = Modifier.padding(bottom = 16.dp)
             )

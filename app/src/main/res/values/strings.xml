@@ -40,6 +40,19 @@
     <string name="selected_size">Size</string>
     <string name="out_of_stock_notify">Out of stock. Notify me when available</string>
     <string name="select_size">Select Size</string>
+    <string name="wifi_settings">Wi-Fi Settings</string>
+    <string name="mobile_data_settings">Mobile Data Settings</string>
+    <string name="select_network">Select</string>
+    <string name="contact_info">
+        To change your communication preferences,\n
+        you can call AyMarka Customer Service\n
+        at 444 3 662 or send an email to\n
+        onlinedestek@aymarka.com.tr.\n
+    </string>
+    <string name="version_info">Version %1$s</string>
+    <string name="product_id">Product ID: %1$s</string>
+
+
 
 
 

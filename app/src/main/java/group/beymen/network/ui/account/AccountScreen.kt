@@ -1,7 +1,6 @@
 package group.beymen.network.ui.account
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,14 +13,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Place
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
@@ -42,6 +40,7 @@ import androidx.navigation.NavHostController
 import group.beymen.network.R
 import group.beymen.network.common.LanguageChangeHelper
 import group.beymen.network.data.model.main.LanguageModel
+import group.beymen.network.ui.account.components.NetworkDropdownMenu
 import group.beymen.network.ui.account.components.SettingsComponents
 import group.beymen.network.ui.components.LanguagesDropdown
 import group.beymen.network.ui.main.components.BottomBarComponents
@@ -54,16 +53,13 @@ fun AccountScreen(
     currentLanguage: String,
     onLanguageChange: (String) -> Unit
 ) {
+    val context = LocalContext.current
+    var selectedNetwork by remember { mutableStateOf<String?>(null) }
     val allLanguages = listOf(
         LanguageModel("en", "English", R.drawable.lang_en),
         LanguageModel("tr", "Turkish", R.drawable.lang_tr),
     )
-
-    val context = LocalContext.current // Obtain the context here
-    var isDarkModeEnabled by remember { mutableStateOf(false) }
-    var isNetworkModeEnabled by remember { mutableStateOf(false) }
-    var isLanguageModeEnabled by remember { mutableStateOf(false) }
-
+    val versionName = context.packageManager.getPackageInfo(context.packageName, 0).versionName
 
     Scaffold(
         topBar = {
@@ -107,59 +103,25 @@ fun AccountScreen(
                     )
                 }
                 Spacer(modifier = Modifier.height(16.dp))
+                HorizontalDivider(thickness = 1.dp, color = Color.LightGray)
 
                 SettingsComponents(
                     icon = Icons.Default.Person,
                     text = stringResource(id = R.string.personal_info),
                     onClick = { }
                 )
-                Spacer(modifier = Modifier.height(16.dp))
                 HorizontalDivider(thickness = 1.dp, color = Color.LightGray)
-                // Light/Dark Mode
-                /*
+
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(vertical = 12.dp, horizontal = 16.dp)
-                        .clickable { isDarkModeEnabled = !isDarkModeEnabled },
+                        .padding(vertical = 20.dp, horizontal = 16.dp),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
                         Icon(
-                            imageVector = Icons.Default.Build,
-                            contentDescription = null,
-                            modifier = Modifier.size(24.dp)
-                        )
-                        Spacer(modifier = Modifier.width(16.dp))
-                        Text(
-                            text = stringResource(id = R.string.dark_mode),
-                            fontSize = 18.sp,
-                            fontWeight = FontWeight.Normal
-                        )
-                    }
-                    Switch(
-                        checked = isDarkModeEnabled,
-                        onCheckedChange = { isDarkModeEnabled = it }
-                    )
-                }
-                HorizontalDivider(thickness = 1.dp, color = Color.LightGray)
-                */
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(vertical = 12.dp, horizontal = 16.dp)
-                        .clickable { isNetworkModeEnabled = !isNetworkModeEnabled },
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.Notifications,
+                            imageVector = Icons.Default.Settings,
                             contentDescription = null,
                             modifier = Modifier.size(24.dp)
                         )
@@ -170,44 +132,16 @@ fun AccountScreen(
                             fontWeight = FontWeight.Normal
                         )
                     }
-                    Switch(
-                        checked = isNetworkModeEnabled,
-                        onCheckedChange = { isNetworkModeEnabled = it }
-                    )
-                }
-                HorizontalDivider(thickness = 1.dp, color = Color.LightGray)
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(vertical = 12.dp, horizontal = 16.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.Place,
-                            contentDescription = null,
-                            modifier = Modifier.size(24.dp)
-                        )
-                        Spacer(modifier = Modifier.width(16.dp))
-                        Text(
-                            text = stringResource(id = R.string.switch_language),
-                            fontSize = 18.sp,
-                            fontWeight = FontWeight.Normal
-                        )
-                    }
-                    Switch(
-                        checked = currentLanguage == "en",
-                        onCheckedChange = { isChecked ->
-                            val newLanguage = if (isChecked) "en" else "tr"
-                            onLanguageChange(newLanguage)
+
+                    NetworkDropdownMenu(
+                        selectedNetwork = selectedNetwork,
+                        onNetworkChange = { selected ->
+                            selectedNetwork = selected
                         }
                     )
                 }
                 HorizontalDivider(thickness = 1.dp, color = Color.LightGray)
-                 //Language Dropdown
+
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -233,10 +167,7 @@ fun AccountScreen(
                     }
 
                     LanguagesDropdown(
-                        languagesList = listOf(
-                            LanguageModel("en", "English", R.drawable.lang_en),
-                            LanguageModel("tr", "Turkish", R.drawable.lang_tr)
-                        ),
+                        languagesList = allLanguages,
                         currentLanguage = currentLanguage,
                         onCurrentLanguageChange = { newLanguage ->
                             onLanguageChange(newLanguage)
@@ -247,6 +178,34 @@ fun AccountScreen(
                 }
                 HorizontalDivider(thickness = 1.dp, color = Color.LightGray)
 
+                Spacer(modifier = Modifier.weight(1f))
+
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp, vertical = 8.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = stringResource(id = R.string.contact_info),
+                        fontSize = 14.sp,
+                        textAlign = TextAlign.Center,
+                        color = Color.Gray
+                    )
+                }
+
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 8.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = stringResource(id = R.string.version_info, versionName),
+                        fontSize = 14.sp,
+                        color = Color.Gray
+                    )
+                }
             }
         }
     )

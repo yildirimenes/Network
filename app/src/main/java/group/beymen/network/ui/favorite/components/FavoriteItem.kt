@@ -1,6 +1,5 @@
 package group.beymen.network.ui.favorite.components
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -15,25 +14,19 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.AlertDialog
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -41,6 +34,7 @@ import androidx.wear.compose.material.MaterialTheme
 import coil.compose.AsyncImage
 import group.beymen.network.R
 import group.beymen.network.data.model.productlist.Product
+import group.beymen.network.ui.components.DeleteAlertDialog
 import group.beymen.network.ui.productlist.components.ProductImageSliders
 import group.beymen.network.ui.productlist.components.ProductListBottomSheet
 import group.beymen.network.ui.theme.PriceRedColor
@@ -167,6 +161,25 @@ fun FavoriteItem(
                 )
             }
         }
+
+        product.let {
+            Row(
+                modifier = Modifier
+                    .padding(4.dp)
+                    .padding(horizontal = 4.dp, vertical = 4.dp),
+                horizontalArrangement = Arrangement.Start
+            ) {
+                Text(
+                    text = stringResource(id = R.string.product_id, it.ID.toString()),
+                    style = MaterialTheme.typography.body2.copy(
+                        fontSize = 10.sp,
+                        color = Color.Black
+                    ),
+                    modifier = Modifier.align(Alignment.CenterVertically)
+                )
+            }
+        }
+
     }
 
     if (showBottomSheet.value) {
@@ -176,7 +189,7 @@ fun FavoriteItem(
         )
     }
 
-    CustomAlertDialog(
+    DeleteAlertDialog(
         showDialog = showAlertDialog,
         message = stringResource(id = R.string.remove_item_question),
         onConfirm = { onFavoriteClick() },
@@ -184,91 +197,4 @@ fun FavoriteItem(
     )
 }
 
-@Composable
-fun CustomAlertDialog(
-    showDialog: MutableState<Boolean>,
-    titleContent: @Composable (() -> Unit)? = null,
-    message: String,
-    onConfirm: () -> Unit,
-    onDismiss: () -> Unit
-) {
-    if (showDialog.value) {
-        AlertDialog(
-            onDismissRequest = { showDialog.value = false },
-            title = {
-                Box(
-                    modifier = Modifier.fillMaxWidth(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    titleContent?.invoke() ?: androidx.compose.material.Icon(
-                        imageVector = Icons.Filled.Info,
-                        contentDescription = stringResource(id = R.string.confirmation_icon),
-                        tint = Color.LightGray,
-                        modifier = Modifier.size(50.dp)
-                    )
-                }
-            },
-            text = {
-                androidx.compose.material.Text(
-                    text = message,
-                    textAlign = TextAlign.Center,
-                    style = androidx.compose.material.MaterialTheme.typography.body1,
-                    modifier = Modifier
-                        .padding(horizontal = 16.dp, vertical = 8.dp)
-                        .fillMaxWidth()
-                )
-            },
-            confirmButton = {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp),
-                    horizontalArrangement = Arrangement.SpaceEvenly
-                ) {
-                    Box(
-                        modifier = Modifier
-                            .weight(1f)
-                            .background(Color.Black, shape = RoundedCornerShape(10.dp))
-                            .shadow(4.dp, shape = RoundedCornerShape(10.dp))
-                            .clickable {
-                                onConfirm()
-                                showDialog.value = false
-                            },
-                        contentAlignment = Alignment.Center
-                    ) {
-                        androidx.compose.material.Text(
-                            text = stringResource(id = R.string.confirm),
-                            color = Color.White,
-                            modifier = Modifier.padding(vertical = 12.dp),
-                            style = androidx.compose.material.MaterialTheme.typography.button
-                        )
-                    }
-
-                    Spacer(modifier = Modifier.width(8.dp))
-
-                    Box(
-                        modifier = Modifier
-                            .weight(1f)
-                            .background(Color.White, shape = RoundedCornerShape(10.dp))
-                            .border(1.dp, Color.Black, shape = RoundedCornerShape(10.dp))
-                            .clickable {
-                                onDismiss()
-                                showDialog.value = false
-                            },
-                        contentAlignment = Alignment.Center
-                    ) {
-                        androidx.compose.material.Text(
-                            text = stringResource(id = R.string.dismiss),
-                            color = Color.Black,
-                            modifier = Modifier.padding(vertical = 12.dp),
-                            style = androidx.compose.material.MaterialTheme.typography.button
-                        )
-                    }
-                }
-            },
-            shape = RoundedCornerShape(10.dp),
-            backgroundColor = Color.White
-        )
-    }
-}
 

@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import group.beymen.network.R
+import group.beymen.network.ui.components.ErrorComponents
 import group.beymen.network.ui.components.LoadingBarComponents
 import group.beymen.network.ui.components.NetworkImageComponents
 import group.beymen.network.ui.main.components.BottomBarComponents
@@ -66,14 +67,10 @@ fun OutletScreen(
                     LoadingBarComponents()
                 }
                 outletState.error != null -> {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .padding(paddingValues),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Text(text = stringResource(id = R.string.error_message, outletState.error))
-                    }
+                    ErrorComponents(
+                        title = stringResource(id = R.string.app_name),
+                        onRetry = { viewModel.fetchOutletItems() }
+                    )
                 }
                 outletState.outletItems != null -> {
                     LazyColumn(

@@ -19,7 +19,13 @@ class OutletViewModel @Inject constructor(
     var outletPageState by mutableStateOf(OutletPageState())
         private set
 
-    fun fetchOutletItems(bannerDeviceType: String, code: String) {
+    private var lastBannerDeviceType: String = ""
+    private var lastCode: String = ""
+
+    fun fetchOutletItems(bannerDeviceType: String = lastBannerDeviceType, code: String = lastCode) {
+        lastBannerDeviceType = bannerDeviceType
+        lastCode = code
+
         viewModelScope.launch {
             outletPageState = outletPageState.copy(isLoading = true)
 
