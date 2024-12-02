@@ -58,8 +58,6 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
@@ -70,6 +68,7 @@ import androidx.compose.ui.zIndex
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import group.beymen.network.R
+import group.beymen.network.ui.components.ErrorComponents
 import group.beymen.network.ui.components.LoadingBarComponents
 import group.beymen.network.ui.productdetail.components.ExpandableCardContent
 import group.beymen.network.ui.theme.PriceRedColor
@@ -83,6 +82,7 @@ fun ProductDetailScreen(
     onBackClick: () -> Unit
 ) {
     val state by viewModel.productDetailState.collectAsState()
+
     val bottomSheetState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
     val coroutineScope = rememberCoroutineScope()
 
@@ -318,10 +318,21 @@ fun ProductDetailScreen(
 
                                             if (!isExpanded) {
                                                 Text(
-                                                    text = stringResource(id = R.string.label_price, product.LabelPrice),
-                                                    style = MaterialTheme.typography.headlineMedium.copy(
+                                                    text = product.DisplayName,
+                                                    style = MaterialTheme.typography.titleLarge.copy(
                                                         fontWeight = FontWeight.Bold,
-                                                        fontSize = 22.sp
+                                                        fontSize = 16.sp,
+                                                    ),
+                                                    modifier = Modifier.padding(horizontal = 4.dp)
+                                                )
+
+                                                Spacer(modifier = Modifier.height(4.dp))
+
+                                                Text(
+                                                    text = stringResource(id = R.string.label_price, product.LabelPrice),
+                                                    style = MaterialTheme.typography.titleMedium.copy(
+                                                        fontWeight = FontWeight.Bold,
+                                                        fontSize = 16.sp,
                                                     ),
                                                     modifier = Modifier.padding(horizontal = 8.dp)
                                                 )
@@ -332,26 +343,16 @@ fun ProductDetailScreen(
                                                     Row(
                                                         modifier = Modifier
                                                             .padding(4.dp)
-                                                            .border(
-                                                                1.dp,
-                                                                Color.Gray,
-                                                                RoundedCornerShape(4.dp)
-                                                            )
-                                                            .padding(
-                                                                horizontal = 8.dp,
-                                                                vertical = 4.dp
-                                                            ),
+                                                            .border(1.dp, Color.Gray, RoundedCornerShape(4.dp))
+                                                            .padding(horizontal = 8.dp, vertical = 4.dp),
                                                         horizontalArrangement = Arrangement.Start
                                                     ) {
                                                         Text(
                                                             text = it.CampaignTitle,
-                                                            style = MaterialTheme.typography.titleMedium.copy(
+                                                            style = MaterialTheme.typography.titleSmall.copy(
                                                                 fontSize = 16.sp,
-                                                                color = Color.Black,
-                                                                fontWeight = FontWeight.Bold,
-                                                                fontFamily = FontFamily(Font(R.font.regular))
-
-                                                                ),
+                                                                color = Color.Black
+                                                            ),
                                                             modifier = Modifier.align(Alignment.CenterVertically)
                                                         )
 
@@ -360,16 +361,15 @@ fun ProductDetailScreen(
                                                         Text(
                                                             text = stringResource(id = R.string.promoted_price, it.PromotedPrice),
                                                             style = MaterialTheme.typography.titleMedium.copy(
+                                                                fontWeight = FontWeight.Bold,
                                                                 fontSize = 16.sp,
                                                                 color = PriceRedColor,
-                                                                fontWeight = FontWeight.ExtraBold,
-                                                                fontFamily = FontFamily(Font(R.font.medium))
-
                                                             ),
                                                             modifier = Modifier.align(Alignment.CenterVertically)
                                                         )
                                                     }
                                                 }
+
                                             }
 
                                             if (isExpanded) {
@@ -448,15 +448,10 @@ fun ProductDetailScreen(
                         }
                     }
                     is ProductDetailState.Error -> {
-                        Box(
-                            modifier = Modifier.fillMaxSize(),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Text(
-                                text = (state as ProductDetailState.Error).message,
-                                style = MaterialTheme.typography.bodyLarge
-                            )
-                        }
+                        ErrorComponents(
+                            title = stringResource(id = R.string.app_name),
+                            onRetry = { viewModel.getProductDetail(productId) }
+                        )
                     }
                 }
             }

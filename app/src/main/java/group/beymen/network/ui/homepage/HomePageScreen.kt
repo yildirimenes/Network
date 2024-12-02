@@ -131,7 +131,6 @@ fun HomePageScreen(
                 is Resource.Error -> {
                     ErrorComponents(
                         title = stringResource(id = R.string.app_name),
-                        message = homePageState.message ?: "Bir hata oluştu.",
                         onRetry = { homeViewModel.getMainPage() }
                     )
                 }

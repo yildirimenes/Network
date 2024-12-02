@@ -21,8 +21,10 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -49,7 +51,7 @@ fun ProductItem(
 ) {
     val showBottomSheet = remember { mutableStateOf(false) }
     val classificationImageUrl = product.Classifications.firstOrNull()?.ImageUrl
-    val isFavorited = remember { mutableStateOf(false) }
+    var favorite by remember { mutableStateOf(isFavorite) }
 
     Column(
         modifier = Modifier
@@ -108,6 +110,7 @@ fun ProductItem(
             )
             IconButton(
                 onClick = {
+                    favorite = !favorite
                     onFavoriteClick()
                 },
                 modifier = Modifier
@@ -115,8 +118,9 @@ fun ProductItem(
                     .size(32.dp)
             ) {
                 Icon(
-                    imageVector = if (isFavorited.value) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
-                    contentDescription = "Add to Favorites"
+                    imageVector = if (favorite) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
+                    contentDescription = if (favorite) "Remove from Favorites" else "Add to Favorites",
+                    tint = if (favorite) Color.Black else Color.Gray
                 )
             }
         }
@@ -161,6 +165,7 @@ fun ProductItem(
                 )
             }
         }
+        Spacer(modifier = Modifier.height(4.dp))
     }
 
     if (showBottomSheet.value) {
