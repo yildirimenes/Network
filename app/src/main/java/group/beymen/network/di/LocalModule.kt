@@ -9,6 +9,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import group.beymen.network.data.source.local.FavoriteDatabase
 import group.beymen.network.data.source.local.FavoriteProductDao
+import group.beymen.network.data.model.productlist.ProductCache
 import javax.inject.Singleton
 
 @Module
@@ -26,7 +27,12 @@ object DatabaseModule {
     }
 
     @Provides
+    @Singleton
     fun provideFavoriteDao(database: FavoriteDatabase): FavoriteProductDao {
         return database.favoriteProductDao()
     }
+
+    @Provides
+    @Singleton
+    fun provideProductCache(): ProductCache = ProductCache()
 }

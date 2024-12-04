@@ -1,6 +1,4 @@
-package group.beymen.network.data.source.remote
-
-import group.beymen.network.util.Resource
+package group.beymen.network.data.util
 
 suspend fun <T> safeApiCall(apiCall: suspend () -> T): Resource<T> {
     return try {

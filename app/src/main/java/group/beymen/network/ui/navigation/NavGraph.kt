@@ -8,7 +8,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import group.beymen.network.common.UiConfigurationState
+import group.beymen.network.ui.main.UiConfigurationState
 import group.beymen.network.ui.account.AccountScreen
 import group.beymen.network.data.model.main.BottomBarModel
 import group.beymen.network.ui.favorite.FavoriteScreen
@@ -129,15 +129,3 @@ fun NavGraphBuilder.addProductDetailGraph(navController: NavHostController) {
         )
     }
 }
-
-/*
-fun NavGraphBuilder.addSearchGraph(navController: NavHostController) {
-    composable("search") {
-        SearchScreen(
-            navController = navController,
-            onProductClick = { productId ->
-                navController.navigate("product_detail/$productId")
-            }
-        )
-    }
-}*/

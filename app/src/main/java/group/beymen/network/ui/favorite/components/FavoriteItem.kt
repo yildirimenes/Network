@@ -74,20 +74,6 @@ fun FavoriteItem(
                         .padding(2.dp)
                 )
             }
-
-            IconButton(
-                onClick = { showBottomSheet.value = true },
-                modifier = Modifier
-                    .align(Alignment.TopEnd)
-                    .padding(4.dp)
-                    .size(32.dp)
-            ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_quick_add_basket),
-                    contentDescription = "",
-                    tint = Color.LightGray,
-                )
-            }
         }
 
         Spacer(modifier = Modifier.height(8.dp))

@@ -49,7 +49,7 @@ data class Product(
     val IsDiscountBadgeEnabled:Boolean?,
     val DisplayName: String,
     val EstimatedSupplyDate: Any?,
-    val ExternalSystemCode: String,
+    val ExternalSystemCode: String?,
     val FirstProductImageURL: String,
     val ID: Int,
     val IsHero: Boolean,
@@ -112,7 +112,7 @@ data class Stock(
 
 data class OtherProductImages(
     val ProductId: Int,
-    val Style: String,
+    val Style: String?,
     val ColorName: String,
     val CdnPath: String,
     val Id: Int,

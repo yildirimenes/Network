@@ -1,7 +1,7 @@
 package group.beymen.network.data.repository
 
 import group.beymen.network.data.model.productlist.ProductListResponseModel
-import group.beymen.network.util.NetworkResult
+import group.beymen.network.data.util.NetworkResult
 import kotlinx.coroutines.flow.Flow
 
 

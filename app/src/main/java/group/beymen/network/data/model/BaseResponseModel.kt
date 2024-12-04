@@ -1,7 +1,7 @@
 package group.beymen.network.data.model
 
 import com.google.gson.annotations.SerializedName
-import group.beymen.network.util.ActionModel
+import group.beymen.network.data.util.ActionModel
 
 open class BaseResponseModel<T> {
     @SerializedName("Success")

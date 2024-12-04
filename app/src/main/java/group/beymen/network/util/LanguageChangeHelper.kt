@@ -1,4 +1,4 @@
-package group.beymen.network.common
+package group.beymen.network.util
 
 import android.app.LocaleManager
 import android.content.Context

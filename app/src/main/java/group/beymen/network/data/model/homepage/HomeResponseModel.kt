@@ -1,8 +1,8 @@
 package group.beymen.network.data.model.homepage
 
-data class HomePageResponse(
+data class HomeResponseModel(
     val Success: Boolean,
     val Message: String?,
     val ErrorMessageCode: Int?,
-    val Result: List<HomePageItem>?
+    val Result: List<HomeItemModel>?
 )

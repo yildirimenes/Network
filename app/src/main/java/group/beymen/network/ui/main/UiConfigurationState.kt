@@ -1,4 +1,4 @@
-package group.beymen.network.common
+package group.beymen.network.ui.main
 
 data class UiConfigurationState(
     val isDarkMode: Boolean = false,

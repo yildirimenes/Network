@@ -100,9 +100,9 @@ dependencies {
     // Pager
     implementation(libs.accompanist.pager)
     implementation(libs.accompanist.pager.indicators)
-    implementation ("com.google.accompanist:accompanist-drawablepainter:0.28.0")
+    implementation(libs.accompanist.drawablepainter)
 
     //Splash Screen
-    implementation ("androidx.core:core-splashscreen:1.0.1")
+    implementation(libs.core.splashscreen)
 
 }

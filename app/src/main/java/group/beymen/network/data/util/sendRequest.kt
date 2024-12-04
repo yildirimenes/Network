@@ -1,4 +1,4 @@
-package group.beymen.network.util
+package group.beymen.network.data.util
 
 import group.beymen.network.data.model.BaseResponseModel
 import kotlinx.coroutines.Dispatchers

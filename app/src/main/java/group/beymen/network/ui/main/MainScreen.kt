@@ -7,7 +7,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import group.beymen.network.common.UiConfigurationState
 import group.beymen.network.ui.main.components.BottomBarComponents
 import group.beymen.network.ui.navigation.MainNavHost
 
