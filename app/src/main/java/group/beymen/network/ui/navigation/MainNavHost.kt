@@ -5,7 +5,7 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
-import group.beymen.network.common.UiConfigurationState
+import group.beymen.network.ui.main.UiConfigurationState
 import group.beymen.network.data.model.main.BottomBarModel
 
 @Composable

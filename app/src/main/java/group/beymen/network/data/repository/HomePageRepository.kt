@@ -1,8 +1,8 @@
 package group.beymen.network.data.repository
 
-import group.beymen.network.data.model.homepage.HomePageResponse
-import group.beymen.network.util.Resource
+import group.beymen.network.data.model.homepage.HomeResponseModel
+import group.beymen.network.data.util.Resource
 
 interface HomePageRepository {
-    suspend fun getMainPage(): Resource<HomePageResponse>
+    suspend fun getMainPage(): Resource<HomeResponseModel>
 }

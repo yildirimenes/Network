@@ -9,7 +9,7 @@ data class FavoriteProductEntity(
     val displayName: String,
     val labelPrice: Double,
     val promotedPrice: Double?,
-    val imageUrl: String?,
+    val imageUrls: List<String>,
     val campaignTitle: String?,
     val brandName: String?,
     val discount: Int?,

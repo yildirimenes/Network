@@ -19,12 +19,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import group.beymen.network.data.model.homepage.HomePageContent
+import group.beymen.network.data.model.homepage.HomeContent
 import kotlinx.coroutines.delay
 
 @Composable
 fun HomeImageSlider(
-    itemList: List<HomePageContent>,
+    itemList: List<HomeContent>,
     duration: Int,
     onClickItem: (productId: Int?, categoryId: Int?, webUrl: String?) -> Unit
 ) {

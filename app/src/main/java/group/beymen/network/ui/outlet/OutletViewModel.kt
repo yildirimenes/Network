@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import group.beymen.network.data.repository.OutletRepository
-import group.beymen.network.util.Resource
+import group.beymen.network.data.util.Resource
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

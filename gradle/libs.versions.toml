@@ -19,6 +19,9 @@ hiltNavigationCompose = "1.2.0"
 navigation = "2.8.1"
 composeMaterial = "1.4.0"
 pager = "0.30.1"
+accompanist-drawablepainter = "0.28.0"
+core-splashscreen = "1.0.1"
+
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -51,6 +54,8 @@ coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coi
 compose-material = { group = "androidx.wear.compose", name = "compose-material", version.ref = "composeMaterial" }
 accompanist-pager = { group = "com.google.accompanist", name = "accompanist-pager", version.ref = "pager" }
 accompanist-pager-indicators = { group = "com.google.accompanist", name = "accompanist-pager-indicators", version.ref = "pager" }
+accompanist-drawablepainter = { group = "com.google.accompanist", name = "accompanist-drawablepainter", version.ref = "accompanist-drawablepainter" }
+core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "core-splashscreen" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

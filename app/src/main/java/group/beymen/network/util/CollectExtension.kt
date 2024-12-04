@@ -1,4 +1,4 @@
-package group.beymen.network.common
+package group.beymen.network.util
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect

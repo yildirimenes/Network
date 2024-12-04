@@ -1,6 +1,6 @@
 package group.beymen.network.data.model.outletpage
 
-data class OutletPageResponse(
+data class OutletResponseModel(
     val Success: Boolean,
-    val Result: List<OutletPageModel>?
+    val Result: List<OutletModel>?
 )

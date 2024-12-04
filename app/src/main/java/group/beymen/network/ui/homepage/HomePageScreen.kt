@@ -29,7 +29,7 @@ import group.beymen.network.ui.components.HomeImageSlider
 import group.beymen.network.ui.components.LoadingBarComponents
 import group.beymen.network.ui.components.NetworkImageComponents
 import group.beymen.network.ui.main.components.BottomBarComponents
-import group.beymen.network.util.Resource
+import group.beymen.network.data.util.Resource
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -84,7 +84,7 @@ fun HomePageScreen(
                                         if (vitrinSliderItems.isNotEmpty()) {
                                             HomeImageSlider(
                                                 itemList = vitrinSliderItems,
-                                                duration = 3000,
+                                                duration = item.Duration?:5000,
                                                 onClickItem = { productId, categoryId, webUrl ->
                                                     onClickItem(productId, categoryId, webUrl)
                                                 }
@@ -97,7 +97,7 @@ fun HomePageScreen(
                                         if (ortaSliderItems.isNotEmpty()) {
                                             HomeImageSlider(
                                                 itemList = ortaSliderItems,
-                                                duration = 3000,
+                                                duration = item.Duration?:5000,
                                                 onClickItem = { productId, categoryId, webUrl ->
                                                     onClickItem(productId, categoryId, webUrl)
                                                 }

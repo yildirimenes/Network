@@ -1,4 +1,4 @@
-package group.beymen.network.util
+package group.beymen.network.data.util
 
 sealed class Resource<T>(
     val data: T? = null,

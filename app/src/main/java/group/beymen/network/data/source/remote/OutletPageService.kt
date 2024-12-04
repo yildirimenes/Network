@@ -1,6 +1,6 @@
 package group.beymen.network.data.source.remote
 
-import group.beymen.network.data.model.outletpage.OutletPageResponse
+import group.beymen.network.data.model.outletpage.OutletResponseModel
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -9,5 +9,5 @@ interface OutletPageService {
     suspend fun getOutletContent(
         @Query("bannerDeviceType") bannerDeviceType: String,
         @Query("code") code: String
-    ): OutletPageResponse
+    ): OutletResponseModel
 }

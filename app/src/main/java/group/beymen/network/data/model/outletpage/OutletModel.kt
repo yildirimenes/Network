@@ -1,6 +1,6 @@
 package group.beymen.network.data.model.outletpage
 
-data class OutletPageModel(
+data class OutletModel(
     val Type: String,
     val ImageUrl: String?,
     val Link: String?,

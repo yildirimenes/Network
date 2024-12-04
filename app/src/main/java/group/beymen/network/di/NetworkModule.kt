@@ -5,7 +5,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import group.beymen.network.common.Constants.BASE_URL
+import group.beymen.network.util.Constants.BASE_URL
 import group.beymen.network.data.source.remote.OutletPageService
 import group.beymen.network.data.source.remote.ProductDetailService
 import group.beymen.network.data.source.remote.ProductService

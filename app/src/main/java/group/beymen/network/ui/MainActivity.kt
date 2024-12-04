@@ -11,7 +11,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import dagger.hilt.android.AndroidEntryPoint
-import group.beymen.network.common.LanguageChangeHelper
+import group.beymen.network.util.LanguageChangeHelper
 import group.beymen.network.ui.components.RootWarningScreen
 import group.beymen.network.ui.main.MainScreen
 import group.beymen.network.ui.main.MainViewModel

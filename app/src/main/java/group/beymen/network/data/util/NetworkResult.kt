@@ -1,4 +1,4 @@
-package group.beymen.network.util
+package group.beymen.network.data.util
 
 import com.google.gson.annotations.SerializedName
 
