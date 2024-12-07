@@ -1,6 +1,7 @@
 package group.beymen.network.ui.account
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -8,18 +9,18 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Build
 import androidx.compose.material.icons.filled.Place
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
@@ -41,7 +42,6 @@ import group.beymen.network.R
 import group.beymen.network.util.LanguageChangeHelper
 import group.beymen.network.data.model.main.LanguageModel
 import group.beymen.network.ui.account.components.NetworkDropdownMenu
-import group.beymen.network.ui.account.components.SettingsComponents
 import group.beymen.network.ui.components.LanguagesDropdown
 import group.beymen.network.ui.main.components.BottomBarComponents
 
@@ -55,6 +55,7 @@ fun AccountScreen(
 ) {
     val context = LocalContext.current
     var selectedNetwork by remember { mutableStateOf<String?>(null) }
+    var isNetworkModeEnabled by remember { mutableStateOf(false) }
     val allLanguages = listOf(
         LanguageModel("en", "English", R.drawable.lang_en),
         LanguageModel("tr", "Turkish", R.drawable.lang_tr),
@@ -89,29 +90,6 @@ fun AccountScreen(
                     .background(Color.White)
                     .padding(paddingValues)
             ) {
-                Spacer(modifier = Modifier.height(16.dp))
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(vertical = 16.dp),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text(
-                        text = stringResource(id = R.string.hello_name),
-                        fontSize = 24.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-                }
-                Spacer(modifier = Modifier.height(16.dp))
-                HorizontalDivider(thickness = 1.dp, color = Color.LightGray)
-
-                SettingsComponents(
-                    icon = Icons.Default.Person,
-                    text = stringResource(id = R.string.personal_info),
-                    onClick = { }
-                )
-                HorizontalDivider(thickness = 1.dp, color = Color.LightGray)
-
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -141,7 +119,35 @@ fun AccountScreen(
                     )
                 }
                 HorizontalDivider(thickness = 1.dp, color = Color.LightGray)
-
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 12.dp, horizontal = 16.dp)
+                        .clickable { isNetworkModeEnabled = !isNetworkModeEnabled },
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Build,
+                            contentDescription = null,
+                            modifier = Modifier.size(24.dp)
+                        )
+                        Spacer(modifier = Modifier.width(16.dp))
+                        Text(
+                            text = stringResource(id = R.string.off_on_mode),
+                            fontSize = 18.sp,
+                            fontWeight = FontWeight.Normal
+                        )
+                    }
+                    Switch(
+                        checked = isNetworkModeEnabled,
+                        onCheckedChange = { isNetworkModeEnabled = it }
+                    )
+                }
+                HorizontalDivider(thickness = 1.dp, color = Color.LightGray)
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()

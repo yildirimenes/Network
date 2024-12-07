@@ -2,6 +2,7 @@ package group.beymen.network.ui.favorite
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -32,7 +33,6 @@ import group.beymen.network.ui.favorite.components.FavoriteItem
 @Composable
 fun FavoriteScreen(
     viewModel: FavoriteViewModel,
-    onProductClick: (Int) -> Unit,
     onBackClick: () -> Unit
 
 ) {
@@ -57,35 +57,38 @@ fun FavoriteScreen(
             )
         },
         content = { paddingValues ->
-            if (favorites.isEmpty()) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(paddingValues),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text(
-                        text = stringResource(id = R.string.no_items_favorite_message),
-                        style = MaterialTheme.typography.titleMedium.copy(textAlign = TextAlign.Center)
-                    )
-                }
-            } else {
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .background(Color.White)
-                        .padding(bottom = 64.dp)
-                ) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(paddingValues)
+            ) {
+                if (favorites.isEmpty()) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(paddingValues),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text(
+                            text = stringResource(id = R.string.no_items_favorite_message),
+                            style = MaterialTheme.typography.titleMedium.copy(textAlign = TextAlign.Center)
+                        )
+                    }
+                } else {
                     LazyVerticalGrid(
                         columns = GridCells.Fixed(2),
-                        contentPadding = paddingValues,
+                        contentPadding = PaddingValues(
+                            start = 4.dp,
+                            end = 4.dp,
+                            top = 4.dp,
+                            bottom = paddingValues.calculateBottomPadding()
+                        ),
                         modifier = Modifier.fillMaxSize(),
                     ) {
                         items(favorites) { favorite ->
                             FavoriteItem(
                                 product = favorite.toProduct(),
                                 isFavorite = true,
-                                onProductClick = { /*onProductClick(favorite.id)*/ },
                                 onFavoriteClick = { viewModel.removeFavorite(favorite) }
                             )
                         }

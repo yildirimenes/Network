@@ -171,7 +171,8 @@ fun ProductItem(
     if (showBottomSheet.value) {
         ProductListBottomSheet(
             product = product,
-            onClose = { showBottomSheet.value = false }
+            onClose = { showBottomSheet.value = false },
+            clickedProductId = product.ID
         )
     }
 }
