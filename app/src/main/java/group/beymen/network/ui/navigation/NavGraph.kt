@@ -92,13 +92,7 @@ fun NavGraphBuilder.addFavoriteGraph(
     composable(route = BottomBarModel.Favorite.route) {
         FavoriteScreen(
             viewModel = hiltViewModel(),
-            onProductClick = { productId ->
-                navController.navigate("product_detail/$productId") {
-                    launchSingleTop = true
-                }
-            },
             onBackClick = { navController.popBackStack() }
-
         )
     }
 }

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <domain-config cleartextTrafficPermitted="false">
+        <domain includeSubdomains="true">network.com</domain>
+        <pin-set expiration="2025-01-01">
+
+            <!-- www.network.com -->
+            <pin digest="SHA-256">8+LcnBp86VU1kNqLonVcRyGYn0EMVdOSSzmUADmyeXc=</pin>
+
+            <pin digest="SHA-256">86fLIetopQLDNxFZ0uMI66Xpl1pFgLlHHn9v6kT0i4I=</pin>
+
+        </pin-set>
+    </domain-config>
+</network-security-config>

@@ -36,14 +36,12 @@ import group.beymen.network.R
 import group.beymen.network.data.model.productlist.Product
 import group.beymen.network.ui.components.DeleteAlertDialog
 import group.beymen.network.ui.productlist.components.ProductImageSliders
-import group.beymen.network.ui.productlist.components.ProductListBottomSheet
 import group.beymen.network.ui.theme.PriceRedColor
 
 @Composable
 fun FavoriteItem(
     product: Product,
     isFavorite: Boolean,
-    onProductClick: () -> Unit,
     onFavoriteClick: () -> Unit,
 ) {
     val showBottomSheet = remember { mutableStateOf(false) }
@@ -53,7 +51,6 @@ fun FavoriteItem(
     Column(
         modifier = Modifier
             .padding(start = 4.dp, end = 4.dp)
-            .clickable { onProductClick() }
             .fillMaxWidth()
     ) {
         Box(
@@ -165,14 +162,8 @@ fun FavoriteItem(
                 )
             }
         }
+        Spacer(modifier = Modifier.height(8.dp))
 
-    }
-
-    if (showBottomSheet.value) {
-        ProductListBottomSheet(
-            product = product,
-            onClose = { showBottomSheet.value = false }
-        )
     }
 
     DeleteAlertDialog(

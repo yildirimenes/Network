@@ -56,6 +56,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -66,12 +67,16 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
+import androidx.work.workDataOf
 import coil.compose.AsyncImage
 import group.beymen.network.R
 import group.beymen.network.ui.components.ErrorComponents
 import group.beymen.network.ui.components.LoadingBarComponents
 import group.beymen.network.ui.productdetail.components.ExpandableCardContent
 import group.beymen.network.ui.theme.PriceRedColor
+import group.beymen.network.util.AddToCartNotificationWorker
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -82,12 +87,10 @@ fun ProductDetailScreen(
     onBackClick: () -> Unit
 ) {
     val state by viewModel.productDetailState.collectAsState()
-
+    val  context = LocalContext.current
     val bottomSheetState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
     val coroutineScope = rememberCoroutineScope()
-
     var isExpanded by remember { mutableStateOf(false) }
-
     var selectedSize by remember { mutableStateOf<String?>(null) }
 
     LaunchedEffect(productId) {
@@ -243,7 +246,7 @@ fun ProductDetailScreen(
                                 Box(
                                     modifier = Modifier
                                         .fillMaxWidth()
-                                        .weight(12f)
+                                        .weight(15f)
                                 ) {
                                     val pagerState = rememberPagerState(
                                         pageCount = { product.Images?.size ?: 0 }
@@ -323,7 +326,8 @@ fun ProductDetailScreen(
                                                         fontWeight = FontWeight.Bold,
                                                         fontSize = 16.sp,
                                                     ),
-                                                    modifier = Modifier.padding(horizontal = 4.dp)
+                                                    modifier = Modifier.padding(horizontal = 4.dp),
+                                                    maxLines = 1,
                                                 )
 
                                                 Spacer(modifier = Modifier.height(4.dp))
@@ -389,7 +393,15 @@ fun ProductDetailScreen(
                                     product.Sizes?.let { sizes ->
                                         if (sizes.size == 1) {
                                             Button(
-                                                onClick = { /* Handle Add to Cart */ },
+                                                onClick = {
+                                                    val displayName = product.DisplayName
+                                                    val workRequest = OneTimeWorkRequestBuilder<AddToCartNotificationWorker>()
+                                                        .setInputData(
+                                                            workDataOf("displayName" to displayName)
+                                                        )
+                                                        .build()
+                                                    WorkManager.getInstance(context).enqueue(workRequest)
+                                                },
                                                 shape = RectangleShape,
                                                 colors = ButtonDefaults.buttonColors(
                                                     containerColor = Color.Black,
@@ -428,7 +440,17 @@ fun ProductDetailScreen(
                                                 }
 
                                                 Button(
-                                                    onClick = { /* Handle Add to Cart */ },
+                                                    onClick = {
+                                                        selectedSize?.let {
+                                                            val displayName = product.DisplayName
+                                                            val workRequest = OneTimeWorkRequestBuilder<AddToCartNotificationWorker>()
+                                                                .setInputData(
+                                                                    workDataOf("displayName" to displayName)
+                                                                )
+                                                                .build()
+                                                            WorkManager.getInstance(context).enqueue(workRequest)
+                                                        }
+                                                    },
                                                     shape = RectangleShape,
                                                     colors = ButtonDefaults.buttonColors(
                                                         containerColor = Color.Black,
