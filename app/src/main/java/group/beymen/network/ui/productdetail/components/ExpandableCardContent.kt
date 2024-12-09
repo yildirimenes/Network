@@ -20,7 +20,7 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.TabRowDefaults.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -182,7 +182,10 @@ fun ExpandableCardContent(product: ProductDetailResult) {
                         modifier = Modifier
                             .fillMaxWidth()
                     ) {
-                        Divider(color = Color.LightGray, thickness = if (isExpanded) 2.dp else 1.dp)
+                        HorizontalDivider(
+                            thickness = if (isExpanded) 2.dp else 1.dp,
+                            color = Color.LightGray
+                        )
 
                         Column(
                             modifier = Modifier
@@ -261,28 +264,13 @@ fun ExpandableCardContent(product: ProductDetailResult) {
                             }
                         }
 
-                        Divider(color = Color.LightGray, thickness = if (isExpanded) 2.dp else 1.dp)
+                        HorizontalDivider(
+                            thickness = if (isExpanded) 2.dp else 1.dp,
+                            color = Color.LightGray
+                        )
                     }
                 }
             }
-
-            /*
-            // Ürün Kategorileri (Breadcrumbs)
-            item {
-                Text(
-                    text = "Kategoriler",
-                    style = MaterialTheme.typography.titleSmall,
-                    fontWeight = FontWeight.SemiBold
-                )
-                Spacer(modifier = Modifier.height(8.dp))
-                product.BreadcrumbModelList?.forEach { breadcrumb ->
-                    Text(
-                        text = breadcrumb.DisplayName,
-                        style = MaterialTheme.typography.bodySmall,
-                        color = Color.Gray
-                    )
-                }
-            }*/
         }
     }
 }

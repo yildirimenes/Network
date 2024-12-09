@@ -64,14 +64,7 @@ fun ProductListScreen(
         },
         content = { padding ->
             when {
-                state.isLoading -> LoadingBarComponents()
-                state.error != null -> {
-                    ErrorComponents(
-                        title = stringResource(id = R.string.app_name),
-                        onRetry = { viewModel.loadProducts(categoryId,1,20) }
-                    )
-                }
-                else -> {
+                state.products.isNotEmpty() -> {
                     Box(
                         modifier = Modifier
                             .fillMaxSize()
@@ -99,6 +92,36 @@ fun ProductListScreen(
                         if (state.isLoading) {
                             LoadingBarComponents()
                         }
+                    }
+                }
+                state.isLoading -> LoadingBarComponents()
+                state.error != null -> {
+                    if (state.products.isNotEmpty()) {
+                        Box(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .background(Color.White)
+                        ) {
+                            LazyVerticalGrid(
+                                columns = GridCells.Fixed(2),
+                                contentPadding = padding,
+                                modifier = Modifier.fillMaxSize(),
+                            ) {
+                                itemsIndexed(state.products) { index, product ->
+                                    ProductItem(
+                                        product = product,
+                                        isFavorite = viewModel.isFavorite(product.ID),
+                                        onProductClick = { onProductClick(product.ID) },
+                                        onFavoriteClick = { viewModel.toggleFavorite(product) }
+                                    )
+                                }
+                            }
+                        }
+                    } else {
+                        ErrorComponents(
+                            title = stringResource(id = R.string.app_name),
+                            onRetry = { viewModel.loadProducts(categoryId) }
+                        )
                     }
                 }
             }

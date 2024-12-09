@@ -8,7 +8,7 @@ import dagger.hilt.components.SingletonComponent
 import group.beymen.network.data.repository.FavoriteRepository
 import group.beymen.network.data.repository.FavoriteRepositoryImpl
 import group.beymen.network.data.repository.HomePageRepository
-import group.beymen.network.data.repository.OutletPageRepositoryImpl
+import group.beymen.network.data.repository.OutletRepositoryImpl
 import group.beymen.network.data.repository.OutletRepository
 import group.beymen.network.data.repository.ProductDetailRepository
 import group.beymen.network.data.repository.ProductDetailRepositoryImpl
@@ -26,7 +26,7 @@ abstract class RepositoryModule {
 
     @Binds
     @Singleton
-    abstract fun bindOutletRepository(repositoryImpl: OutletPageRepositoryImpl): OutletRepository
+    abstract fun bindOutletRepository(repositoryImpl: OutletRepositoryImpl): OutletRepository
 
     @Binds
     @Singleton

@@ -49,6 +49,7 @@ import group.beymen.network.R
 import group.beymen.network.data.model.productlist.Product
 import group.beymen.network.ui.theme.PriceRedColor
 import group.beymen.network.util.AddToCartNotificationWorker
+import group.beymen.network.util.Constants.IMAGE_URL
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -149,7 +150,7 @@ fun ProductListBottomSheet(
                             .padding(top = 4.dp, bottom = 4.dp)
                     ) {
                         AsyncImage(
-                            model = "https://img-network.mncdn.com/productimages/${image.CdnPath}",
+                            model = "${IMAGE_URL}${image.CdnPath}",
                             contentDescription = image.ColorName,
                             contentScale = ContentScale.FillBounds,
                             modifier = Modifier.fillMaxSize()
