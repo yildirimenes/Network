@@ -2,7 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.compose.compiler)
-    alias(libs.plugins.ksp)
+    //alias(libs.plugins.ksp)
+    alias(libs.plugins.kapt)
     alias(libs.plugins.hilt.plugin)
 }
 
@@ -19,11 +20,13 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
+
     }
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -44,6 +47,9 @@ android {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
+    }
+    androidResources {
+        generateLocaleConfig = true
     }
 }
 
@@ -68,9 +74,13 @@ dependencies {
     androidTestImplementation(libs.compose.ui.test.junit4)
     debugImplementation(libs.compose.ui.tooling)
     debugImplementation(libs.compose.ui.test.manifest)
+    // Work Runtime impl IDE alert
+    //implementation (libs.work.runtime.ktx)
+    implementation ("androidx.work:work-runtime-ktx:2.8.1")
 
     // Room
-    ksp(libs.room.compiler)
+    //ksp(libs.room.compiler)
+    kapt(libs.room.compiler)
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
 
@@ -79,7 +89,8 @@ dependencies {
     implementation(libs.converter.gson)
 
     // Hilt
-    ksp(libs.hilt.compiler)
+    //ksp(libs.hilt.compiler)
+    kapt(libs.hilt.compiler)
     implementation(libs.hilt.android)
     implementation(libs.hilt.navigation.compose)
 
@@ -88,4 +99,15 @@ dependencies {
 
     // Coil
     implementation(libs.coil.compose)
+
+    // Pager
+    implementation(libs.accompanist.pager)
+    implementation(libs.accompanist.pager.indicators)
+    implementation(libs.accompanist.drawablepainter)
+
+    //Splash Screen
+    implementation(libs.core.splashscreen)
+
+    //OkHttp
+    implementation (libs.okhttp)
 }

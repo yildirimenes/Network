@@ -1,3 +1,62 @@
 <resources>
-    <string name="app_name">Network</string>
+    <string name="app_name">NetWork</string>
+    <string name="homepage_screen">HomePage Screen</string>
+    <string name="account_screen">Account Screen</string>
+    <string name="outlet_screen">Outlet Screen</string>
+    <string name="home_title">Home</string>
+    <string name="outlet_title">Outlet</string>
+    <string name="favorite_title">Favorite</string>
+    <string name="account_title">Account</string>
+    <string name="search_title">Search></string>
+    <string name="hello_name">Hello, Enes Yıldırım</string>
+    <string name="personal_info">Personal Information</string>
+    <string name="dark_mode">Dark/Light Mode</string>
+    <string name="language_mode">Language Mode</string>
+    <string name="network_mode">Network Settings</string>
+    <string name="off_on_mode">Offline/Online Mode</string>
+    <string name="switch_language">Turkish/English</string>
+    <string name="root_warning_title">Device Not Supported</string>
+    <string name="root_warning_message">Your device appears to be rooted. For security reasons, this application cannot run on rooted devices.</string>
+    <string name="exit">Exit</string>
+    <string name="confirm">Confirm</string>
+    <string name="dismiss">Dismiss</string>
+    <string name="no_connection_internet">Network connection problems</string>
+    <string name="try_again">Try Again</string>
+    <string name="remove_item_question">Are you sure you want to remove this product from your favorites?</string>
+    <string name="confirmation_icon">Confirm Icon</string>
+    <string name="remove_item_desc">Remove Favorites</string>
+    <string name="promoted_price"> %1$s TL</string>
+    <string name="label_price">%1$s TL</string>
+    <string name="no_items_favorite_message">There are no products added to favorites yet.</string>
+    <string name="favorites">Favorites</string>
+    <string name="error_message">Error: %1$s</string>
+    <string name="sample_size">Sample Size: %1$s</string>
+    <string name="model_size">Model Size: %1$s</string>
+    <string name="detail_item">- %1$s</string>
+    <string name="ref_no">Ref No: %1$s</string>
+    <string name="product_details">Product Details</string>
+    <string name="shirt_icon">Shirt Icon</string>
+    <string name="color_selection">Color Selection:</string>
+    <string name="add_to_cart">ADD TO CART</string>
+    <string name="selected_size">Size</string>
+    <string name="out_of_stock_notify">Out of stock. Notify me when available</string>
+    <string name="select_size">Select Size</string>
+    <string name="wifi_settings">Wi-Fi Settings</string>
+    <string name="mobile_data_settings">Mobile Data Settings</string>
+    <string name="select_network">Select</string>
+    <string name="contact_info">
+        To change your communication preferences,\n
+        you can call AyMarka Customer Service\n
+        at 444 3 662 or send an email to\n
+        onlinedestek@aymarka.com.tr.\n
+    </string>
+    <string name="version_info">Version %1$s</string>
+    <string name="product_id">Product ID: %1$s</string>
+    <string name="add_to_cart_message">%1$s has been added to the cart.</string>
+
+
+
+
+
+
 </resources>
