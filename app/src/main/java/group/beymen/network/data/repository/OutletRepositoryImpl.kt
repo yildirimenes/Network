@@ -6,7 +6,7 @@ import group.beymen.network.data.util.safeApiCall
 import group.beymen.network.data.util.Resource
 import javax.inject.Inject
 
-class OutletPageRepositoryImpl @Inject constructor(
+class OutletRepositoryImpl @Inject constructor(
     private val outletPageService: OutletPageService
 ) : OutletRepository {
 

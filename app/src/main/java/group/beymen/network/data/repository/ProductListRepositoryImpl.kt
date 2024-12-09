@@ -104,7 +104,12 @@ class ProductListRepositoryImpl @Inject constructor(
         }
         if (result is Resource.Success) {
             val productList = result.data?.result?.ProductList ?: emptyList()
-            productCache.put(page, productList)
+            productCache.put(page, productList.map { product ->
+                product.copy(
+                    MediaList = product.MediaList?.map { it.copy() },
+                    OtherProductImages = product.OtherProductImages?.map { it.copy() }
+                )
+            })
         }
     }
 }

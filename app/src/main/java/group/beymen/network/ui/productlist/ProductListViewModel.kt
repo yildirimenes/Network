@@ -53,6 +53,10 @@ class ProductListViewModel @Inject constructor(
 
         isLoadingMore = true
 
+        _state.update {
+            it.copy(isLoading = page == 1)
+        }
+
         viewModelScope.launch {
             repository.getProductList(
                 categoryId = categoryId,
@@ -66,7 +70,7 @@ class ProductListViewModel @Inject constructor(
             ).collect { result ->
                 when (result) {
                     is NetworkResult.OnLoading -> _state.update {
-                        it.copy(isLoading = page == 1)
+                        it.copy(isLoading = true)
                     }
                     is NetworkResult.OnSuccess -> {
                         val newProducts = result.data?.ProductList ?: emptyList()
@@ -84,11 +88,21 @@ class ProductListViewModel @Inject constructor(
                             )
                         }
                     }
-                    is NetworkResult.OnError -> _state.update {
-                        it.copy(
-                            isLoading = false,
-                            error = result.message ?: "An error occurred"
-                        )
+                    is NetworkResult.OnError -> {
+                        val cachedProducts = productCache.get(page)
+                        if (cachedProducts != null && cachedProducts.isNotEmpty()) {
+                            _state.value = state.value.copy(
+                                isLoading = false,
+                                error = result.message,
+                                products = cachedProducts
+                            )
+                        } else {
+                            _state.value = state.value.copy(
+                                isLoading = false,
+                                error = result.message,
+                                products = emptyList()
+                            )
+                        }
                     }
                 }
                 isLoadingMore = false
@@ -97,10 +111,11 @@ class ProductListViewModel @Inject constructor(
     }
 
     fun loadNextPage(categoryId: Int) {
-        loadProducts(categoryId = categoryId, page = currentPage + 1)
+        val nextPage = (_state.value.products.size / 20) + 1
+        loadProducts(categoryId, nextPage)
     }
 
-    // Favorite Operations
+    // Favorite Locale Operations
     private fun loadFavorites() {
         viewModelScope.launch {
             favoriteRepository.getFavorites().collect {
@@ -124,6 +139,7 @@ class ProductListViewModel @Inject constructor(
         return _favorites.value.any { it.id == productId }
     }
 }
+
 
 // Not Cache Version
 /*

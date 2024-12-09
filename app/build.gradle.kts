@@ -64,7 +64,6 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
     implementation(libs.lifecycle.runtime.ktx)
     implementation(libs.lifecycle.runtime.compose)
-    implementation (libs.work.runtime.ktx)
     implementation(libs.activity.compose)
     implementation(platform(libs.compose.bom))
     implementation(libs.compose.ui)
@@ -75,6 +74,9 @@ dependencies {
     androidTestImplementation(libs.compose.ui.test.junit4)
     debugImplementation(libs.compose.ui.tooling)
     debugImplementation(libs.compose.ui.test.manifest)
+    // Work Runtime impl IDE alert
+    //implementation (libs.work.runtime.ktx)
+    implementation ("androidx.work:work-runtime-ktx:2.8.1")
 
     // Room
     //ksp(libs.room.compiler)
