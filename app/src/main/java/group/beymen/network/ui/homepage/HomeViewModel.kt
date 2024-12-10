@@ -26,7 +26,8 @@ class HomeViewModel @Inject constructor(
     fun getLoadPage() {
         viewModelScope.launch {
             _mainPageState.value = Resource.Loading()
-            _mainPageState.value = homePageRepository.getMainPage()
+            val result = homePageRepository.getMainPage()
+            _mainPageState.value = result
         }
     }
 }
