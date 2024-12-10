@@ -1,7 +1,6 @@
 # Preserve application-specific models and data classes
 -keep class group.beymen.network.data.model.** { *; }
 -keep class group.beymen.network.data.source.local.** { *; }
--keep class group.beymen.network.data.repository.** { *; }
 
 # Prevent obfuscation of Hilt-generated classes and modules
 -keep class dagger.hilt.** { *; }

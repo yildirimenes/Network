@@ -49,8 +49,8 @@ fun ProductListScreen(
         topBar = {
             TopAppBar(
                 title = {
-                    val categoryName = state.productModel?.CategoryName ?: "Products"
-                    val totalItemCount = state.productModel?.TotalItemCount ?: 0
+                    val categoryName = state.productModel?.CategoryName ?: ""
+                    val totalItemCount = state.productModel?.TotalItemCount ?: "Locale Data"
                     Text("$categoryName [$totalItemCount]", fontSize = 14.sp)
                 },
                 navigationIcon = {

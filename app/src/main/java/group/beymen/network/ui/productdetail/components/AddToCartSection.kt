@@ -4,7 +4,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -39,8 +41,80 @@ fun AddToCartSection(
             .background(Color.White),
         contentAlignment = Alignment.Center
     ) {
-        product.Sizes?.let { sizes ->
-            if (sizes.isEmpty()) {
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            product.Sizes?.let { sizes ->
+                if (sizes.isEmpty()) {
+                    Button(
+                        onClick = { onAddToCartClick(null) },
+                        shape = RectangleShape,
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = Color.Black,
+                            contentColor = Color.White
+                        ),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(16.dp)
+                            .height(48.dp)
+                    ) {
+                        Text(text = stringResource(id = R.string.add_to_cart))
+                    }
+                } else if (sizes.size == 1) {
+                    Button(
+                        onClick = { onAddToCartClick(sizes.first().ValueText) },
+                        shape = RectangleShape,
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = Color.Black,
+                            contentColor = Color.White
+                        ),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(16.dp)
+                            .height(48.dp)
+                    ) {
+                        Text(text = stringResource(id = R.string.add_to_cart))
+                    }
+                } else {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 8.dp),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        TextButton(
+                            onClick = { onSizeSelectClick() },
+                            modifier = Modifier
+                                .border(1.dp, Color.Gray, RectangleShape)
+                                .padding(horizontal = 2.dp)
+                                .fillMaxWidth(0.2f)
+                        ) {
+                            Text(text = selectedSize ?: stringResource(id = R.string.selected_size))
+                            Icon(
+                                Icons.Default.ArrowDropDown,
+                                contentDescription = null,
+                                Modifier.size(30.dp)
+                            )
+                        }
+
+                        Button(
+                            onClick = { onAddToCartClick(selectedSize) },
+                            shape = RectangleShape,
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = Color.Black,
+                                contentColor = Color.White
+                            ),
+                            modifier = Modifier
+                                .fillMaxWidth(0.9f)
+                                .height(48.dp)
+                        ) {
+                            Text(text = stringResource(id = R.string.add_to_cart))
+                        }
+                    }
+                }
+            } ?: run {
                 Button(
                     onClick = { onAddToCartClick(null) },
                     shape = RectangleShape,
@@ -55,74 +129,8 @@ fun AddToCartSection(
                 ) {
                     Text(text = stringResource(id = R.string.add_to_cart))
                 }
-            } else if (sizes.size == 1) {
-                Button(
-                    onClick = { onAddToCartClick(sizes.first().ValueText) },
-                    shape = RectangleShape,
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = Color.Black,
-                        contentColor = Color.White
-                    ),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp)
-                        .height(48.dp)
-                ) {
-                    Text(text = stringResource(id = R.string.add_to_cart))
-                }
-            } else {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 8.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    TextButton(
-                        onClick = { onSizeSelectClick() },
-                        modifier = Modifier
-                            .border(1.dp, Color.Gray, RectangleShape)
-                            .padding(horizontal = 2.dp)
-                            .fillMaxWidth(0.2f)
-                    ) {
-                        Text(text = selectedSize ?: stringResource(id = R.string.selected_size))
-                        Icon(
-                            Icons.Default.ArrowDropDown,
-                            contentDescription = null,
-                            Modifier.size(30.dp)
-                        )
-                    }
-
-                    Button(
-                        onClick = { onAddToCartClick(selectedSize) },
-                        shape = RectangleShape,
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = Color.Black,
-                            contentColor = Color.White
-                        ),
-                        modifier = Modifier
-                            .fillMaxWidth(0.9f)
-                            .height(48.dp)
-                    ) {
-                        Text(text = stringResource(id = R.string.add_to_cart))
-                    }
-                }
             }
-        } ?: run {
-            Button(
-                onClick = { onAddToCartClick(null) },
-                shape = RectangleShape,
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = Color.Black,
-                    contentColor = Color.White
-                ),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp)
-                    .height(48.dp)
-            ) {
-                Text(text = stringResource(id = R.string.add_to_cart))
-            }
+            Spacer(modifier = Modifier.height(24.dp))
         }
     }
 }

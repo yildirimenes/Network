@@ -7,9 +7,11 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import group.beymen.network.data.source.local.FavoriteDatabase
+import group.beymen.network.data.source.local.LocalDatabase
 import group.beymen.network.data.source.local.FavoriteProductDao
-import group.beymen.network.data.model.productlist.ProductCache
+import group.beymen.network.data.source.local.HomePageDao
+import group.beymen.network.data.source.local.OutletPageDao
+import group.beymen.network.data.source.local.ProductListDao
 import javax.inject.Singleton
 
 @Module
@@ -18,21 +20,36 @@ object DatabaseModule {
 
     @Provides
     @Singleton
-    fun provideDatabase(@ApplicationContext context: Context): FavoriteDatabase {
+    fun provideDatabase(@ApplicationContext context: Context): LocalDatabase {
         return Room.databaseBuilder(
             context,
-            FavoriteDatabase::class.java,
+            LocalDatabase::class.java,
             "favorite_products_db"
         ).fallbackToDestructiveMigration().build()
     }
 
     @Provides
     @Singleton
-    fun provideFavoriteDao(database: FavoriteDatabase): FavoriteProductDao {
+    fun provideFavoriteDao(database: LocalDatabase): FavoriteProductDao {
         return database.favoriteProductDao()
     }
 
     @Provides
     @Singleton
-    fun provideProductCache(): ProductCache = ProductCache()
+    fun provideHomePageCache(database: LocalDatabase): HomePageDao {
+        return database.homePageDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideOutletPageCache(database: LocalDatabase): OutletPageDao {
+        return database.outletPageDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideProductListCache(database: LocalDatabase): ProductListDao {
+        return database.productListDao()
+    }
+
 }
