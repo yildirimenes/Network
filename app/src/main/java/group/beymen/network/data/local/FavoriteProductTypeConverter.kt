@@ -1,4 +1,4 @@
-package group.beymen.network.data.model.favorite
+package group.beymen.network.data.local
 
 import androidx.room.TypeConverter
 import com.google.gson.Gson

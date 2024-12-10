@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -97,56 +98,78 @@ fun ProductDetailScreen(
             }
         }
     ) {
-        Scaffold(
-            topBar = {
-                TopAppBar(
-                    title = {
-                        Box(
-                            modifier = Modifier.fillMaxWidth(),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            (state as? ProductDetailState.Success)?.product?.let { product ->
-                                Text(
-                                    text = product.DisplayName,
-                                    style = MaterialTheme.typography.titleMedium,
-                                    maxLines = 1,
-                                    overflow = TextOverflow.Ellipsis,
-                                    textAlign = TextAlign.Center
-                                )
+        when (state) {
+            is ProductDetailState.Loading -> {
+                LoadingBarComponents()
+            }
+            is ProductDetailState.Success -> {
+                val product = (state as ProductDetailState.Success).product
+                Scaffold(
+                    topBar = {
+                        TopAppBar(
+                            title = {
+                                Box(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    Text(
+                                        text = product?.DisplayName?:"",
+                                        style = MaterialTheme.typography.titleMedium,
+                                        maxLines = 1,
+                                        overflow = TextOverflow.Ellipsis,
+                                        textAlign = TextAlign.Center
+                                    )
+                                }
+                            },
+                            navigationIcon = {
+                                IconButton(onClick = onBackClick) {
+                                    Icon(
+                                        Icons.AutoMirrored.Filled.ArrowBack,
+                                        contentDescription = "Back"
+                                    )
+                                }
                             }
-                        }
+                        )
                     },
-                    navigationIcon = {
-                        IconButton(onClick = onBackClick) {
-                            Icon(
-                                Icons.AutoMirrored.Filled.ArrowBack,
-                                contentDescription = "Back"
-                            )
-                        }
-                    }
-                )
-            },
-            content = { paddingValues ->
-                when (state) {
-                    is ProductDetailState.Loading -> LoadingBarComponents()
-                    is ProductDetailState.Success -> {
-                        val product = (state as ProductDetailState.Success).product
-                        product?.let {
-                            Column(
+                    bottomBar = {
+                        AddToCartSection(
+                            product = product!!,
+                            selectedSize = selectedSize,
+                            onSizeSelectClick = {
+                                coroutineScope.launch { bottomSheetState.show() }
+                            },
+                            onAddToCartClick = {
+                                val displayName = product?.DisplayName
+                                val workRequest =
+                                    OneTimeWorkRequestBuilder<AddToCartNotificationWorker>()
+                                        .setInputData(
+                                            workDataOf("displayName" to displayName)
+                                        )
+                                        .build()
+                                WorkManager.getInstance(context).enqueue(workRequest)
+                            }
+                        )
+                    },
+                    content = { paddingValues ->
+                        Column(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(paddingValues)
+                        ) {
+                            Box(
                                 modifier = Modifier
                                     .fillMaxSize()
-                                    .padding(paddingValues)
                             ) {
                                 Box(
                                     modifier = Modifier
                                         .fillMaxWidth()
-                                        .weight(15f)
+                                        .fillMaxHeight()
                                 ) {
                                     val pagerState = rememberPagerState(
-                                        pageCount = { product.Images?.size ?: 0 }
+                                        pageCount = { product?.Images?.size ?: 0 }
                                     )
 
-                                    product.Badges?.firstOrNull()?.let { badge ->
+                                    product?.Badges?.firstOrNull()?.let { badge ->
                                         AsyncImage(
                                             model = badge.ImageUrl,
                                             contentDescription = "Badge",
@@ -159,13 +182,12 @@ fun ProductDetailScreen(
                                         )
                                     }
 
-
                                     HorizontalPager(
                                         state = pagerState,
                                         modifier = Modifier.fillMaxSize()
                                     ) { page ->
                                         AsyncImage(
-                                            model = product.Images?.get(page),
+                                            model = product?.Images?.get(page),
                                             contentDescription = null,
                                             contentScale = ContentScale.FillBounds,
                                             modifier = Modifier.fillMaxSize(),
@@ -180,7 +202,7 @@ fun ProductDetailScreen(
                                             .padding(8.dp),
                                         horizontalArrangement = Arrangement.spacedBy(8.dp)
                                     ) {
-                                        repeat(product.Images?.size ?: 0) { index ->
+                                        repeat(product?.Images?.size ?: 0) { index ->
                                             Box(
                                                 modifier = Modifier
                                                     .size(8.dp)
@@ -192,11 +214,12 @@ fun ProductDetailScreen(
                                         }
                                     }
                                 }
+
                                 Column(
                                     modifier = Modifier
                                         .fillMaxWidth()
-                                        //.weight(3f)
-
+                                        .align(Alignment.BottomCenter)
+                                        .zIndex(2f)
                                 ) {
                                     Card(
                                         shape = RectangleShape,
@@ -212,44 +235,27 @@ fun ProductDetailScreen(
                                         Column(
                                             modifier = Modifier.padding(16.dp)
                                         ) {
-
                                             if (!isExpanded) {
-                                                CollapsedProductContent(product = product)
+                                                CollapsedProductContent(product = product!!)
                                             }
 
                                             if (isExpanded) {
-                                                ExpandableCardContent(product = product)
+                                                ExpandableCardContent(product = product!!)
                                             }
                                         }
                                     }
                                 }
-
-                                AddToCartSection(
-                                    product = product,
-                                    selectedSize = selectedSize,
-                                    onSizeSelectClick = {
-                                        coroutineScope.launch { bottomSheetState.show() }
-                                    },
-                                    onAddToCartClick = {
-                                        val displayName = product.DisplayName
-                                        val workRequest =
-                                            OneTimeWorkRequestBuilder<AddToCartNotificationWorker>()
-                                                .setInputData(
-                                                    workDataOf("displayName" to displayName)
-                                                )
-                                                .build()
-                                        WorkManager.getInstance(context).enqueue(workRequest)
-                                    }
-                                )
                             }
                         }
                     }
-                    is ProductDetailState.Error -> ErrorComponents(
-                        title = stringResource(id = R.string.app_name),
-                        onRetry = { viewModel.getProductDetail(productId) }
-                    )
-                }
+                )
             }
-        )
+            is ProductDetailState.Error -> {
+                ErrorComponents(
+                    title = stringResource(id = R.string.app_name),
+                    onRetry = { viewModel.getProductDetail(productId) }
+                )
+            }
+        }
     }
 }
