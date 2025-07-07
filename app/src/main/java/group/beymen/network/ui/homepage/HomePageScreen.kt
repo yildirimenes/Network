@@ -4,6 +4,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
@@ -29,6 +30,7 @@ fun HomePageScreen(
                 title = stringResource(id = R.string.app_name),
             )
         },
+        containerColor = Color.White,
         bottomBar = { BottomBarComponents(navController = navController) },
         content = { paddingValues ->
             when (state) {

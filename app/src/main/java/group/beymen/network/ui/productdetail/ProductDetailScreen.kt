@@ -131,6 +131,7 @@ fun ProductDetailScreen(
                             }
                         )
                     },
+                    containerColor = Color.White,
                     bottomBar = {
                         AddToCartSection(
                             product = product!!,

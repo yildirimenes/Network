@@ -47,7 +47,7 @@ fun NetworkDropdownMenu(
                 shape = RoundedCornerShape(8.dp))
             .clickable { expanded = true }
             .padding(vertical = 4.dp),
-        contentAlignment = Alignment.CenterStart
+        contentAlignment = Alignment.CenterStart,
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -69,7 +69,9 @@ fun NetworkDropdownMenu(
         DropdownMenu(
             expanded = expanded,
             onDismissRequest = { expanded = false },
-            modifier = Modifier.wrapContentSize()
+            modifier = Modifier
+                .wrapContentSize()
+                .background(Color.White)
         ) {
             DropdownMenuItem(
                 text = { Text(stringResource(id = R.string.wifi_settings)) },

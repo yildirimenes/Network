@@ -14,13 +14,16 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
@@ -59,9 +62,14 @@ fun ProductListScreen(
                             Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = "Back")
                     }
-                }
+                },
+                modifier = Modifier.shadow(4.dp),
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = Color.White
+                )
             )
         },
+        containerColor = Color.White,
         content = { padding ->
             when {
                 state.products.isNotEmpty() -> {

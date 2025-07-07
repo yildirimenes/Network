@@ -5,6 +5,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import group.beymen.network.ui.main.components.BottomBarComponents
@@ -20,7 +21,8 @@ fun MainScreen(
     val configuration = remember { mutableStateOf(UiConfigurationState()) }
 
     Scaffold(
-        bottomBar = { BottomBarComponents(navController = navController) }
+        bottomBar = { BottomBarComponents(navController = navController) },
+        containerColor = Color.White
     ) {
         MainNavHost(
             navController = navController,
