@@ -1,3 +1,5 @@
+import org.gradle.kotlin.dsl.debugImplementation
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
@@ -110,4 +112,6 @@ dependencies {
 
     //OkHttp
     implementation (libs.okhttp)
+
+    implementation ("com.squareup.leakcanary:leakcanary-android:2.14")
 }

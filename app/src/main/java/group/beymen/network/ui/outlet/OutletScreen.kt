@@ -42,6 +42,7 @@ fun OutletScreen(
                 title = stringResource(id = R.string.outlet_title),
             )
         },
+        containerColor = Color.White,
         bottomBar = { BottomBarComponents(navController = navController) },
         content = { paddingValues ->
             when {
