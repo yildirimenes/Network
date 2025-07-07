@@ -77,7 +77,10 @@ fun ProductListBottomSheet(
         }
     }
 
-    ModalBottomSheet(onDismissRequest = { onClose() }) {
+    ModalBottomSheet(
+        onDismissRequest = { onClose() },
+        containerColor = Color.White
+    ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
